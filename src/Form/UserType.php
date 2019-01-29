@@ -18,7 +18,7 @@ class UserType extends AbstractType {
                 ->add('firstname', TextType::class, array('label' => 'Nom', 'attr' => array('class' => 'form-control')))
                 ->add('lastname', TextType::class, array('label' => 'Prenom', 'attr' => array('class' => 'form-control')))
                 ->add('email', TextType::class, array('label' => 'Email', 'attr' => array('class' => 'form-control')))
-                ->add('photo', FileType::class, array('label' => 'Photo', 'attr' => array('class' => 'form-control')))
+                ->add('photo', FileType::class, array('label' => 'Photo', 'attr' => array('data_class' => null,'class' => 'form-control')))
                 ->add('profession', TextType::class, array('label' => 'Profession', 'attr' => array('class' => 'form-control')))
                 ->add('cv', TextType::class, array('label' => 'Cv', 'attr' => array('class' => 'form-control')))
                 ->add('password', RepeatedType::class, array(

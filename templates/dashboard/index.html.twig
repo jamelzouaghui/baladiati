@@ -29,7 +29,13 @@
                         <td> 
 
                             <div class="pull-left image">
-                                <img src="{{ asset('uploads/users/' ~ user.photo) }}" class="img-circle" alt="User Image" style="width: 50px;">
+                                {%if user.photo is empty %}
+                                    <img src="{{ asset('uploads/users/avatar.jpg' ) }}" class="img-circle" alt="User " style="width: 50px;">
+                                    
+                                {%else%}
+                                    <img src="{{ asset('uploads/users/' ~ user.photo) }}" class="img-circle" alt="User Image" style="width: 50px;">
+                                {%endif%}
+
                             </div>
 
                         </td>

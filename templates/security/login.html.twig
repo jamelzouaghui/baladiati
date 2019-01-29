@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{#{% block body %}
+<form method="post">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <label for="inputEmail" class="sr-only">Email</label>
+    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+
+    <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}"
+    >
+
+
+
+    <button class="btn btn-lg btn-primary" type="submit">
+        Sign in
+    </button>
+</form>
+{% endblock %}
+#}
+
+
+
+{% block body %}
+    <style>
+
+        html, body {
+            height: 100%;
+            background: #d2d6de !important;
+        }
+    </style>
+
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="{{ asset('bower_components/bootstrap/dist/css/bootstrap.css')}}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ asset('bower_components/font-awesome/css/font-awesome.min.css')}}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="{{ asset('bower_components/Ionicons/css/ionicons.min.css')}}">
+    <!-- jvectormap -->
+    <link rel="stylesheet" href="{{ asset('bower_components/jvectormap/jquery-jvectormap.css')}}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{asset('dist/css/AdminLTE.css')}}">
+
+    <link rel="stylesheet" href=" {{ asset('plugins/iCheck/square/blue.css')}}">
+    <!-- Google Font -->
+    <div class="login-box">
+
+        <div class="login-logo">
+            <a href="#"><b>ADVOCACY</b>Q3</a>
+        </div>
+        <!-- /.login-logo -->
+        <div class="login-box-body">
+            <h2 class="login-box-msg">Authentification</h2>
+
+            <form method="post">
+
+                {%if error%}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {%endif%}
+
+
+                <div class="form-group has-feedback">
+                    <input type="text" id="inputEmail"  name="email" class="form-control" placeholder="{{ 'Login'|trans }}" required="required" value="{{last_username}}" />
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <input type="password" name="password" id="password" class="form-control" placeholder="{{ 'Mot de passe'|trans }}" required="required" />
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <input type="hidden" name="_csrf_token"value="{{ csrf_token('authenticate') }}" >
+
+                <button class="btn btn-lg btn-primary" type="submit"> Se connecter</button>
+            </form>
+
+
+
+        </div>
+
+    </div>
+
+{% endblock%}

@@ -1,0 +1,36 @@
+
+
+{% extends 'template.html.twig' %}
+
+{% block body %}
+
+    <div id= "ContactForm" class="box-body">
+        {{form_start(form)}}
+
+        <div class="form-group">
+            <div class="row form-group">
+                <div class="col-md-5">
+                    {{ form_row(form.title)}}
+                </div>
+                <div class="col-md-5 pull-right">
+                    {{ form_widget(form.createdAt)}}
+                </div>
+
+            </div>
+            <div class="form-group">
+                {{ form_row(form.content)}}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.photo)}}
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <input type="submit" class="btn  btn-success" value="Enregister"/>
+    {{form_end(form)}}
+</div>
+{% endblock %}

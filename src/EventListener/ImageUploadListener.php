@@ -41,6 +41,7 @@ class ImageUploadListener {
         if (!$entity instanceof User) {
             return;
         }
+        
         $file = $entity->getPhoto();
         if ($file instanceof UploadedFile) {
             $filename = $this->uploader->upload($file);

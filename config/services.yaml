@@ -6,6 +6,9 @@
 parameters:
     locale: 'fr'
     users_directory: '%kernel.project_dir%/public/uploads/users'
+    articles_directory: '%kernel.project_dir%/public/uploads/articles'
+    
+  
 
 services:
     # default configuration for services in *this* file
@@ -30,6 +33,7 @@ services:
     App\Service\FileUploader:
         arguments:
             $targetDirectory: '%users_directory%'
+
             
     App\EventListener\ImageUploadListener:
         tags:

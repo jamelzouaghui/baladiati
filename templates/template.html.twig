@@ -334,13 +334,13 @@
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu" data-widget="tree">
                         <li>
-                            <a href="#">
+                            <a href="{{path('dashboard')}}">
                                 <i class="fa fa-envelope"></i> <span>Présentation</span>
 
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="{{path('list-article')}}">
                                 <i class="fa fa-envelope"></i> <span>Actualités</span>
 
                             </a>
@@ -627,6 +627,7 @@
 
 
         <script src="{{ asset('dist/js/js_globale.js')}}"></script>
+         <script src="{{ asset('dist/js/demo.js')}}"></script>
         <script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
         <script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
         <script src="{{ asset('bower_components/select2/dist/js/select2.min.js')}}"></script>

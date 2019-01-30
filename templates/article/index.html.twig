@@ -27,11 +27,23 @@
                 <div class="attachment-text">
                     {{article.content}} <a href="#">more</a>
                 </div>
+                <div class="checkbox">
+                    <label>
+                        {%if article.publicated == 1%}
+                            <input type="checkbox" checked> publié
+                        {%else%}
+                            <input type="checkbox" > publié
+                        {%endif%}
+
+                    </label>
+                </div>
                 <!-- /.attachment-text -->
             </div>
             <!-- /.attachment-pushed -->
+            
         </div>
 
+<hr style="border-top: 1px solid #e0cacade;">
     {%endfor%}
 
 

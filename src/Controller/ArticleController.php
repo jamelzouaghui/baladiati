@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Form\ArticleType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\ORM\EntityManagerInterface;
+
 class ArticleController extends AbstractController {
 
     /**
@@ -16,8 +18,8 @@ class ArticleController extends AbstractController {
     public function listArticle(EntityManagerInterface $em) {
 
         $em = $this->getDoctrine()->getManager();
-       $articles = $em->getRepository(Article::class)->findAll();
-      
+        $articles = $em->getRepository(Article::class)->findAll();
+
         return $this->render('article/index.html.twig', [
                     'articles' => $articles
                         ]
@@ -35,10 +37,11 @@ class ArticleController extends AbstractController {
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $file = $article->getPhoto();
-            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
-            $file->move($this->getParameter('articles_directory'), $fileName);
-            $article->setphoto($fileName);
+//            $file = $form->get('photo')->getData();
+//             //$file = $article->getPhoto();
+//            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+//            $file->move($this->getParameter('articles_directory'), $fileName);
+//            $article->setphoto($fileName);
             $article->setPublicated(0);
             $em->persist($article);
             $em->flush();
@@ -49,6 +52,31 @@ class ArticleController extends AbstractController {
                     'form' => $form->createView()
                         ]
         );
+    }
+
+    /**
+     * @Route("/{id}/publiearticle" , name="publie-article",options={"expose"=true})
+     * 
+     */
+    public function publieArticle(Request $request, $id, EntityManagerInterface $em) {
+
+        $em = $this->getDoctrine()->getManager();
+        $article = $em->getRepository(Article::class)->find($id);
+        $article->setPublicated(1);
+        $em->persist($article);
+        $em->flush();
+    }
+     /**
+     * @Route("/{id}/depubliearticle" , name="depublie-article",options={"expose"=true})
+     * 
+     */
+    public function depublieArticle(Request $request, $id, EntityManagerInterface $em) {
+
+        $em = $this->getDoctrine()->getManager();
+        $article = $em->getRepository(Article::class)->find($id);
+        $article->setPublicated(0);
+        $em->persist($article);
+        $em->flush();
     }
 
 //    /**

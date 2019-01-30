@@ -30,17 +30,17 @@
                 <div class="checkbox">
                     <label>
                         {%if article.publicated == 1%}
-                            <input type="checkbox" checked> publié
+                            <input type="checkbox" onchange='handleChange(this,{{article.id}} );' checked> publié
                         {%else%}
-                            <input type="checkbox" > publié
+                            <input type="checkbox" onchange='handleChange(this,{{article.id}} );' > publié
                         {%endif%}
 
                     </label>
                 </div>
-                
-                    <a href="#" class="btn btn-social-icon btn-dropbox"><i class="fa fa-edit"></i>editer</a>
-                    <a href="#" class="btn btn-social-icon btn-dropbox"><i class="fa fa-times"></i>supprimer</a>
-              
+
+                <a href="#" class="btn btn-social-icon btn-dropbox"><i class="fa fa-edit"></i>editer</a>
+                <a href="#" class="btn btn-social-icon btn-dropbox"><i class="fa fa-times"></i>supprimer</a>
+
                 <!-- /.attachment-text -->
             </div>
             <!-- /.attachment-pushed -->
@@ -50,7 +50,31 @@
         <hr style="border-top: 1px solid #e0cacade;">
     {%endfor%}
 
-
+    <script>
+        function handleChange(checkbox, id) {
+            console.log(id);
+            if (checkbox.checked == true) {
+                $.ajax({
+                    type: "POST",
+                    url: Routing.generate('publie-article', {'id': id}),
+                    data: JSON.stringify({id: id}),
+                    dataType: "json",
+                    success: function (data) {
+                        // Execute some specific data for route1
+                    }
+                });
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: Routing.generate('depublie-article', {'id': id}),
+                    data: JSON.stringify({id: id}),
+                    dataType: "json",
+                    success: function (data) {
+                    }
+                });
+            }
+        }
+    </script>
 
 
 {% endblock %}

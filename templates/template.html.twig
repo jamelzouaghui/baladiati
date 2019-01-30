@@ -271,13 +271,13 @@
                             <!-- User Account: style can be found in dropdown.less -->
                             <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                   
-                                    {%if app.user.photo is empty %}
-                                            <img src="{{ asset('uploads/users/avatar.jpg' ) }}" class="user-image" alt="User " >
 
-                                        {%else%}
-                                            <img src="{{ asset('uploads/users/' ~ app.user.photo) }}" class="user-image" alt="User Image" >
-                                        {%endif%}
+                                    {%if app.user.photo is empty %}
+                                        <img src="{{ asset('uploads/users/avatar.jpg' ) }}" class="user-image" alt="User " >
+
+                                    {%else%}
+                                        <img src="{{ asset('uploads/users/' ~ app.user.photo) }}" class="user-image" alt="User Image" >
+                                    {%endif%}
                                     <span class="hidden-xs">{{app.user.username}}</span>
                                 </a>
                                 <ul class="dropdown-menu">
@@ -317,7 +317,7 @@
                     <!-- Sidebar user panel -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                            
+
                             {%if app.user.photo is empty %}
                                 <img src="{{ asset('uploads/users/avatar.jpg' ) }}" class="img-circle" alt="User " >
 
@@ -627,12 +627,13 @@
 
 
         <script src="{{ asset('dist/js/js_globale.js')}}"></script>
-         <script src="{{ asset('dist/js/demo.js')}}"></script>
+        <script src="{{ asset('dist/js/demo.js')}}"></script>
         <script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
         <script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
         <script src="{{ asset('bower_components/select2/dist/js/select2.min.js')}}"></script>
 
-
+        <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
 
     </body>
 </html>

@@ -352,7 +352,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="{{path('reclamation')}}">
                                 <i class="fa fa-envelope"></i> <span>Réclamations</span>
 
                             </a>
@@ -428,6 +428,7 @@
         <!-- ./wrapper -->
 
         <!-- jQuery 3 -->
+        
         <script src="{{ asset('bower_components/jquery/dist/jquery.min.js')}}"></script>
         <!-- Bootstrap 3.3.7 -->
         <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
@@ -454,6 +455,7 @@
 
         <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
         <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+        
 
     </body>
 </html>

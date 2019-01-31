@@ -1,28 +1,34 @@
 
 
-{% extends 'template.html.twig' %}
-
-{% block body %}
-
-    <div id= "ContactForm" class="box-body">
-        {{form_start(form)}}
-
-        <div class="form-group">
-            <div class="form-group">
-                {{ form_row(form.title)}}
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Default Modal</h4>
             </div>
-            <div class="form-group">
-                {{ form_row(form.createdAt)}}
+            <div class="modal-body">
+                {{ form_start(form, { 'action': path('add-event'), 'attr': { 'class': 'add-event' } }) }}
+               
+                <div class="form-group">
+                    {{ form_widget(form.title)}}
+                </div>
+                <div class="form-group">
+                    {{ form_widget(form.createdAt)}}
+                </div>
+                <div class="form-group">
+                    {{ form_widget(form.adress)}}
+                </div>
+
             </div>
-            <div class="form-group">
-                {{ form_row(form.adress)}}
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <input type="submit" class="btn btn-primary"></input>
             </div>
+            {{ form_end(form) }}
         </div>
-
+        <!-- /.modal-content -->
     </div>
-
-
-    <input type="submit" class="btn  btn-success" value="Enregister"/>
-    {{form_end(form)}}
+    <!-- /.modal-dialog -->
 </div>
-{% endblock %}

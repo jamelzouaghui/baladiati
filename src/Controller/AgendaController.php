@@ -69,7 +69,8 @@ class AgendaController extends AbstractController {
         }
 
         return $this->render('agenda/edit-event.html.twig', [
-                    'form' => $form->createView()
+                    'form' => $form->createView(),
+                    'id'=>$id
                         ]
         );
     }

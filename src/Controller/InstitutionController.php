@@ -10,11 +10,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class InstitutionController extends AbstractController
-{
- 
-    
-     /**
+class InstitutionController extends AbstractController {
+
+    /**
      * @Route("/institution", name="institution")
      */
     public function index(EntityManagerInterface $em) {
@@ -49,9 +47,8 @@ class InstitutionController extends AbstractController
                         ]
         );
     }
-    
-    
-     /**
+
+    /**
      * @Route("/{id}//institution/edit" , name="edit-institution")
      * 
      */
@@ -71,13 +68,13 @@ class InstitutionController extends AbstractController
         }
 
         return $this->render('institution/edit-institution.html.twig', [
-                    'form' => $form->createView()
+                    'form' => $form->createView(),
+                    'id' => $id
                         ]
         );
     }
+
 //
-
-
 
     /**
      * @Route("/{id}/institution/delete" , name="delete-institution")
@@ -97,7 +94,6 @@ class InstitutionController extends AbstractController
         }
 
         return $this->redirectToRoute('institution');
-
     }
 
 }

@@ -1,0 +1,4 @@
+nom;prenom;email;societe;taille;corpeOne;corpeToo;corpeThree;verbatim;q1;q2;q3;q4;q5;noteGlobale;moyenneEvaluation;classification;marque;solution;application;distribution;departement;dateCreation;recommandation;Opt-out temporaire;Opt-out definitif
+RAYMOND;Nicolas;test.import@orange.fr;RAYMOND Nicolas;0 à 2 salariés;;Plomberie Sanitaire;Chauffage;;;;;;;;;; Nicoll Happy support;B?tis-supports WC ; CHUTUNIC?;;;19/02/18 09:16;;;
+VIGNERON;MIGUEL;test.import1@wanadoo.fr;CLIMATELEC;1;;Plomberie Sanitaire;;;;;;;;;;; Nicoll Happy support;B?tis-supports WC ;;;;08/02/18 16:43;;;
+JAUNIN;LAURENT;habdallah@q3-amp.com;DEP;1;;Plomberie Sanitaire;;;;;;;;;;; Nicoll Happy support;B?tis-supports WC ;;;;08/02/18 15:46;;;

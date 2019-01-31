@@ -50,6 +50,13 @@ body {
 .layout-boxed {
     background-color: #f9fafc;
 }
+a.btn.btn-block.btn-info.btn-xs,
+a.btn.btn-block.btn-danger.btn-xs{
+    width: 77px;
+    float: left;
+    margin-right: 7px;
+    margin-top:0px;
+}
 /*
  * Content Wrapper - contains the main content
  */

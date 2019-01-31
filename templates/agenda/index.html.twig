@@ -1,0 +1,41 @@
+{% extends 'template.html.twig' %}
+{% block headTile %}
+
+    <ol class="breadcrumb">
+        <li>
+            <a href="{{path('add-event')}}" type="button" class="btn btn-block btn-success"> Ajouter Evenement</a>
+        </li>
+
+    </ol>
+{% endblock %}
+{% block body %}
+    <div class="box-body">
+        <table id="users" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer cell-border">
+            <thead>
+                <tr>
+                    
+                    <th>Titre de l'évennement</th>
+                    <th>Date</th>
+                    <th>Addresse</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for event in events %}
+                    <tr>
+                       
+                        <td>{{event.title}}</td>
+                        <td>{{event.createdAt |date('d/m/Y ')}}</td>
+                        <th>{{event.adress}}</th>
+                      
+                        <td>
+                            <a href="{{path('edit-event',{'id':event.id})}}" class="btn btn-social-icon btn-dropbox"><i class="fa fa-edit"></i></a>
+                            <a href="{{path('delete-event',{'id':event.id})}}" class="btn btn-social-icon btn-dropbox"><i class="fa fa-times"></i></a>
+                        </td>
+                    </tr>
+                {%endfor%}
+            </tbody>
+
+        </table>
+    </div>
+{% endblock %}

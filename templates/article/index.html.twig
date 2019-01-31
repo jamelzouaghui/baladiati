@@ -38,8 +38,12 @@
                     </label>
                 </div>
 
-                <a href="#" class="btn btn-social-icon btn-dropbox"><i class="fa fa-edit"></i>editer</a>
-                <a href="#" class="btn btn-social-icon btn-dropbox"><i class="fa fa-times"></i>supprimer</a>
+              {#  <a href="#" class="btn btn-social-icon btn-dropbox"><i class="fa fa-edit"></i>editer</a>
+                <a href="#" class="btn btn-social-icon btn-dropbox"><i class="fa fa-times"></i>supprimer</a>#}
+              <td>
+                    <a  href="{{path('edit-article',{'id':article.id})}}" type="button" class="btn btn-block btn-info btn-xs">Modifier</a>
+                    <a href="{{path('delete-article',{'id':article.id})}}"type="button" class="btn btn-block btn-danger btn-xs">Supprimer</a>
+                  </td>
 
                 <!-- /.attachment-text -->
             </div>

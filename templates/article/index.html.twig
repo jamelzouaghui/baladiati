@@ -55,8 +55,9 @@
     {%endfor%}
 
     <script>
+    
         function handleChange(checkbox, id) {
-            console.log(id);
+          
             if (checkbox.checked == true) {
                 $.ajax({
                     type: "POST",

@@ -67,6 +67,7 @@ class ArticleController extends AbstractController {
         $em->persist($article);
         $em->flush();
     }
+    
      /**
      * @Route("/{id}/depubliearticle" , name="depublie-article",options={"expose"=true})
      * 
@@ -132,4 +133,6 @@ class ArticleController extends AbstractController {
         return $this->redirectToRoute('list-article');
 
     }
+    
+    
 }

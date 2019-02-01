@@ -417,8 +417,8 @@
                 reserved.
             </footer>
 
-         
-           
+
+
             <!-- /.control-sidebar -->
             <!-- Add the sidebar's background. This div must be placed
                  immediately after the control sidebar -->
@@ -428,7 +428,7 @@
         <!-- ./wrapper -->
 
         <!-- jQuery 3 -->
-        
+
         <script src="{{ asset('bower_components/jquery/dist/jquery.min.js')}}"></script>
         <!-- Bootstrap 3.3.7 -->
         <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
@@ -455,6 +455,12 @@
 
         <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
         <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
+
+         <script async defer
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9OjpDi1Yr0juEUfyJmSTo-V57L8ZU0f0&callback=initMap">
+         </script>
+      
         
 
     </body>

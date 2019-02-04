@@ -66,6 +66,7 @@ class ArticleController extends AbstractController {
         $article->setPublicated(1);
         $em->persist($article);
         $em->flush();
+        return $this->redirect($this->generateUrl('list-article'));
     }
 
     /**
@@ -79,6 +80,7 @@ class ArticleController extends AbstractController {
         $article->setPublicated(0);
         $em->persist($article);
         $em->flush();
+         return $this->redirect($this->generateUrl('list-article'));
     }
 
     /**

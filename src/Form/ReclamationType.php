@@ -12,8 +12,8 @@ class ReclamationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('adress')
-            ->add('name')
+            ->add('adress', TextType::class, array('label' => 'Adresse', 'attr' => array('class' => 'form-control')))
+            ->add('name', TextType::class, array('label' => 'Name', 'attr' => array('class' => 'form-control')))
             ->add('city')
             ->add('latitude')
             ->add('longitude')

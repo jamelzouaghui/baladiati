@@ -33,8 +33,7 @@ class ReclamationController extends AbstractController {
         $em = $this->getDoctrine()->getManager();
         $reclamations = $em->getRepository(AbstractGMap::class)->findAll();
         $response['reclamations'] = $this->getReclamationsAsArray($reclamations);
-//        $view = $this->view($response, 200)->setFormat("json");
-//        return $this->handleView($view);
+        
         
         return new JsonResponse($response);
     }

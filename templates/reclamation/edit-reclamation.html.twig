@@ -1,4 +1,14 @@
+<style>
+    .form-inline .form-group {
+        display: block; 
 
+    }
+    .form-inline .form-control {
+        display: block; 
+        width: 100%; 
+
+    }
+</style>
 
 <div class="modal fade" id="modal-reclamation-edit-{{id}}">
     <div class="modal-dialog">
@@ -22,9 +32,10 @@
                     {{ form_row(form.commentaire)}}
                 </div>
 
+
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                
                 <input type="submit" class="btn btn-primary"></input>
             </div>
             {{ form_end(form) }}

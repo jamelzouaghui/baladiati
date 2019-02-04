@@ -17,7 +17,7 @@ class ArticleType extends AbstractType {
                 ->add('title', TextType::class, array('label' => 'Titre', 'attr' => array('class' => 'form-control')))
                 ->add('content', TextType::class, array('label' => 'contenu', 'attr' => array('class' => 'form-control')))
                 ->add('photo', FileType::class, array('label' => 'Photo', 'attr' => array('class' => 'form-control')))
-                ->add('createdAt', DateTimeType::class, array('label' => 'date de creation', 'attr' => array('class' => 'form-control')))
+                ->add('createdAt', TextType::class, array( 'label' => 'date de creation', 'attr' => array('class' => 'datepicker form-control')))
 
         ;
     }

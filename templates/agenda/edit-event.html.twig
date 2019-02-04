@@ -1,4 +1,14 @@
+<style>
+    .form-inline .form-group {
+        display: block; 
 
+    }
+    .form-inline .form-control {
+        display: block; 
+        width: 100%; 
+
+    }
+</style>
 
 <div class="modal fade" id="modal-event-edit-{{id}}">
     <div class="modal-dialog">
@@ -9,22 +19,25 @@
                 <h4 class="modal-title">Default Modal</h4>
             </div>
             <div class="modal-body">
-
-                {{ form_start(form, { 'action': path('edit-event', { 'id': id })    }) }}
+                {{ form_start(form, { 'action': path('edit-event', { 'id': id }), 'attr': { 'class': 'edit-event' } }) }}
 
                 <div class="form-group">
-                    {{ form_row(form.title)}}
+
+                    <label >Titre</label>
+                    {{ form_widget(form.title)}}
                 </div>
                 <div class="form-group">
-                    {{ form_row(form.createdAt)}}
+                    <label >Date de création</label>
+                    {{ form_widget(form.createdAt)}}
                 </div>
                 <div class="form-group">
-                    {{ form_row(form.adress)}}
+                    <label >Adresse</label>
+                    {{ form_widget(form.adress)}}
                 </div>
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                
                 <input type="submit" class="btn btn-primary"></input>
             </div>
             {{ form_end(form) }}

@@ -67,8 +67,8 @@ class ArticleController extends AbstractController {
         $em->persist($article);
         $em->flush();
     }
-    
-     /**
+
+    /**
      * @Route("/{id}/depubliearticle" , name="depublie-article",options={"expose"=true})
      * 
      */
@@ -105,13 +105,13 @@ class ArticleController extends AbstractController {
         }
 
         return $this->render('article/edit-article.html.twig', [
-                    'form' => $form->createView()
+                    'form' => $form->createView(),
+                    'id' => $id
                         ]
         );
     }
+
 //
-
-
 
     /**
      * @Route("/{id}/deletearticle" , name="delete-article")
@@ -131,8 +131,6 @@ class ArticleController extends AbstractController {
         }
 
         return $this->redirectToRoute('list-article');
-
     }
-    
-    
+
 }

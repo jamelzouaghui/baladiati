@@ -23,6 +23,7 @@ class UserFixtures extends Fixture
         $user = new User();
         //$user->setUsername('admin');
         $user->setEmail('admin@yopmail.com');
+         $user->setRoles(['ROLE_ADMIN']);
        
         $user->setPassword($this->encoder->encodePassword($user, 'password'));
 

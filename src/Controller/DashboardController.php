@@ -17,6 +17,7 @@ class DashboardController extends AbstractController {
     public function index(Request $request) {
 
    $em = $this->getDoctrine()->getManager();
+  
    $users = $em->getRepository('App\Entity\User')->findAll();
  
         return $this->render('dashboard/index.html.twig', [

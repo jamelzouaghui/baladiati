@@ -4,10 +4,14 @@ namespace App\Entity;
 
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\DateTime;
+use JMS\Serializer\Annotation as JMS;
+
 
 /**
  * *@ORM\Table(name="article")
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
+ * @JMS\ExclusionPolicy("all")
  */
 class Article {
 
@@ -121,6 +125,18 @@ class Article {
         $this->publicated = $publicated;
 
         return $this;
+    }
+    
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updatedTimestamps() {
+        $dateTimeNow = new DateTime('now');
+        $this->setUpdatedAt($dateTimeNow);
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt($dateTimeNow);
+        }
     }
 
 }

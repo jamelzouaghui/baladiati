@@ -2,9 +2,12 @@
 {% block headTile %}
 
     <ol class="breadcrumb">
+
         <li>
-            {# <button type="button" class="btn btn-block btn-success" >Ajouter article </button>#}
-            <a href="{{path('add-article')}}"  class="btn btn-block btn-success"> Ajouter article</a>
+            <a type="button" class="btn btn-block btn-success" data-toggle="modal" data-target="#modal-add-artilce">
+                Ajouter article
+            </a>
+            {{ render(controller( 'App\\Controller\\ArticleController::addArticle' )) }}
         </li>
 
 
@@ -38,12 +41,12 @@
                     </label>
                 </div>
 
-              {#  <a href="#" class="btn btn-social-icon btn-dropbox"><i class="fa fa-edit"></i>editer</a>
-                <a href="#" class="btn btn-social-icon btn-dropbox"><i class="fa fa-times"></i>supprimer</a>#}
-              <td>
-                    <a  href="{{path('edit-article',{'id':article.id})}}" type="button" class="btn btn-block btn-info btn-xs">Modifier</a>
+
+                <td>
                     <a href="{{path('delete-article',{'id':article.id})}}"type="button" class="btn btn-block btn-danger btn-xs">Supprimer</a>
-                  </td>
+                    <a  href="#"data-toggle="modal" data-target="#modal-article-edit-{{article.id}}" type="button" class="btn btn-block btn-info btn-xs">Modifier</a>
+                        {{ render(controller( 'App\\Controller\\ArticleController::editArticle',{'id':article.id} )) }}
+                </td>
 
                 <!-- /.attachment-text -->
             </div>
@@ -55,9 +58,9 @@
     {%endfor%}
 
     <script>
-    
+
         function handleChange(checkbox, id) {
-          
+
             if (checkbox.checked == true) {
                 $.ajax({
                     type: "POST",

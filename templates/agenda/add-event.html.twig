@@ -12,18 +12,22 @@
                 {{ form_start(form, { 'action': path('add-event'), 'attr': { 'class': 'add-event' } }) }}
                
                 <div class="form-group">
+                    
+                    <label >Titre</label>
                     {{ form_widget(form.title)}}
                 </div>
                 <div class="form-group">
+                     <label >Date de création</label>
                     {{ form_widget(form.createdAt)}}
                 </div>
                 <div class="form-group">
+                     <label >Adresse</label>
                     {{ form_widget(form.adress)}}
                 </div>
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                
                 <input type="submit" class="btn btn-primary"></input>
             </div>
             {{ form_end(form) }}

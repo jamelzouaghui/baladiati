@@ -1,36 +1,50 @@
 
 
-{% extends 'template.html.twig' %}
+<style>
+    .form-inline .form-group {
+        display: block; 
 
-{% block body %}
+    }
+    .form-inline .form-control {
+        display: block; 
+        width: 100%; 
 
-    <div id= "ContactForm" class="box-body">
-        {{form_start(form)}}
+    }
+</style>
 
-        <div class="form-group">
-            <div class="row form-group">
-                <div class="col-md-5">
-                    {{ form_row(form.title)}}
+<div class="modal fade" id="modal-article-edit-{{id}}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Default Modal</h4>
+            </div>
+            <div class="modal-body">
+                {{ form_start(form, { 'action': path('edit-article', { 'id': id }), 'attr': { 'class': 'edit-article' } }) }}
+
+                <div class="form-group">
+
+                    {{ form_widget(form.title)}}
                 </div>
-                <div class="col-md-5 pull-right">
+                <div class="form-group">
                     {{ form_widget(form.createdAt)}}
                 </div>
+                <div class="form-group">
+                    {{ form_widget(form.content)}}
+                </div>
+                <div class="form-group">
+                    {{ form_widget(form.photo)}}
+                </div>
 
             </div>
-            <div class="form-group">
-                {{ form_row(form.content)}}
+            <div class="modal-footer">
+                
+                <input type="submit" class="btn btn-primary"></input>
             </div>
-            {#<div class="form-group">
-                {{ form_row(form.photo)}}
-            </div>#}
-
-
+            {{ form_end(form) }}
         </div>
-
+        <!-- /.modal-content -->
     </div>
-
-
-    <input type="submit" class="btn  btn-success" value="Enregister"/>
-    {{form_end(form)}}
+    <!-- /.modal-dialog -->
 </div>
-{% endblock %}

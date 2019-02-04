@@ -25,8 +25,8 @@ class UserController extends AbstractController {
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-             $file = $form->get('photo')->getData();
-           
+            $file = $form->get('photo')->getData();
+
             $email = $form->get('email')->getData();
             $password = $form->get('password')->getData();
             $emailUser = $em->getRepository('App\Entity\User')->findByEmail($email);
@@ -65,7 +65,7 @@ class UserController extends AbstractController {
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             //$file = $user->getPhoto();
-             $file = $form->get('photo')->getData();
+            $file = $form->get('photo')->getData();
             $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
 
             // Move the file to the directory where brochures are stored
@@ -88,7 +88,8 @@ class UserController extends AbstractController {
         }
 
         return $this->render('user/edit-user.html.twig', [
-                    'form' => $form->createView()
+                    'form' => $form->createView(),
+                    'id' => $id
                         ]
         );
     }

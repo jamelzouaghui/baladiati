@@ -2,11 +2,16 @@
 
 namespace App\Entity;
 
+use App\Repository\UserRepository;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints\DateTime;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @JMS\ExclusionPolicy("all")
  */
 class User implements UserInterface {
 
@@ -195,7 +200,7 @@ class User implements UserInterface {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt) {
+    public function setCreatedAt(DateTimeInterface $createdAt) {
         $this->createdAt = $createdAt;
 
         return $this;
@@ -205,7 +210,7 @@ class User implements UserInterface {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updatedAt) {
+    public function setUpdatedAt(DateTimeInterface $updatedAt) {
         $this->updatedAt = $updatedAt;
 
         return $this;
@@ -219,6 +224,19 @@ class User implements UserInterface {
         $this->createdBy = $createdBy;
 
         return $this;
+    }
+    
+    
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updatedTimestamps() {
+        $dateTimeNow = new DateTime('now');
+        $this->setUpdatedAt($dateTimeNow);
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt($dateTimeNow);
+        }
     }
 
 }

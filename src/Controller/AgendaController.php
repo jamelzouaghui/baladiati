@@ -57,7 +57,7 @@ class AgendaController extends AbstractController {
         $em = $this->getDoctrine()->getManager();
 
         $event = $em->getRepository('App\Entity\Agenda')->find($id);
-        $form = $this->createForm(EditAgendaType::class, $event);
+        $form = $this->createForm(AgendaType::class, $event);
 //test pour git init workflow
 
         $form->handleRequest($request);

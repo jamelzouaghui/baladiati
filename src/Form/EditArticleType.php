@@ -16,6 +16,7 @@ class EditArticleType extends AbstractType {
         $builder
                 ->add('title', TextType::class, array('label' => 'Titre', 'attr' => array('class' => 'form-control')))
                 ->add('content', TextType::class, array('label' => 'contenu', 'attr' => array('class' => 'form-control')))
+                 ->add('photo', FileType::class, array('data_class'=>null,'label' => 'Photo', 'attr' => array('class' => 'form-control')))
                ->add('createdAt', DateTimeType::class, array('label' => 'date de creation', 'attr' => array('class' => 'form-control')))
              
         ;

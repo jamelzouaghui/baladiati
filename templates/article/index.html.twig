@@ -45,7 +45,7 @@
                 <td>
                     <a href="{{path('delete-article',{'id':article.id})}}"type="button" class="btn btn-block btn-danger btn-xs">Supprimer</a>
                     <a  href="#"data-toggle="modal" data-target="#modal-article-edit-{{article.id}}" type="button" class="btn btn-block btn-info btn-xs">Modifier</a>
-                        {{ render(controller( 'App\\Controller\\ArticleController::editArticle',{'id':article.id} )) }}
+                    {{ render(controller( 'App\\Controller\\ArticleController::editArticle',{'id':article.id} )) }}
                 </td>
 
                 <!-- /.attachment-text -->
@@ -81,7 +81,8 @@
                     }
                 });
             }
-        }
+        };
+       
     </script>
 
 

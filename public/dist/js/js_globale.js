@@ -18,7 +18,7 @@ $(function () {
     /**
      * Get access to plugins
      */
-   
+
 
     $('#users').DataTable({
         scrollX: true,
@@ -29,7 +29,10 @@ $(function () {
         'info': true,
         'autoWidth': true
     })
-
+    $('#article_createdAt').datepicker({
+        autoclose: true,
+         dateFormat: 'dd/mm/yy'
+    })
 
     $('.select2').select2({
         closeOnSelect: false,

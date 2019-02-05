@@ -100,35 +100,21 @@ class ArticleController extends AbstractController {
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-//            $new_file = $form->getData()->getPhoto();
-//
-//            if ($new_file === null) {
-//                $article->setPhoto($file);
-//            } else {
-//                $fileName = md5(uniqid()) . '.' . $new_file->guessExtension();
-//                $file->move($this->getParameter('articles_directory'), $fileName);
-//                
-//                $article->setPhoto($new_file);
-//            }
-
-
             $new_file = $form->get('photo')->getData();
-            if ($file === null) {
-                $article->setPhoto($file);
+            if ($new_file === null) {
+                //$article->setPhoto($file);
             } else {
-                $fileName = $this->generateUniqueFileName() . '.' . $new_file->guessExtension();
-
-                // Move the file to the directory where brochures are stored
+               // $fileName = $this->generateUniqueFileName() . '.' . $new_file->guessExtension();
+                
+                $fileName = md5(uniqid()) . '.' . $new_file->guessExtension();
+                $file->move($this->getParameter('articles_directory'), $fileName);
+             
                 try {
-                    $file->move(
-                            $this->getParameter('articles_directory'), $fileName
-                    );
+                    //$file->move($this->getParameter('articles_directory'), $fileName);
                 } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
+                   dump($e); 
                 }
 
-                // updates the 'brochure' property to store the PDF file name
-                // instead of its contents
                 $article->setPhoto($fileName);
             }
 
@@ -147,6 +133,7 @@ class ArticleController extends AbstractController {
                         ]
         );
     }
+
     /**
      * @return string
      */

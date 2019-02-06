@@ -47,6 +47,8 @@ class UserController extends AbstractController {
 
         return $this->render('user/add-user.html.twig', [
                     'form' => $form->createView()
+            
+            
                         ]
         );
     }
@@ -57,29 +59,29 @@ class UserController extends AbstractController {
      */
     public function editUser(Request $request, UserPasswordEncoderInterface $encoder, $id) {
         $em = $this->getDoctrine()->getManager();
-
         $user = $em->getRepository('App\Entity\User')->find($id);
+        $photo = $user->getPhoto();
+       
         $form = $this->createForm(EditUserType::class, $user);
-//test pour git init workflow
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            
             $file = $form->get('photo')->getData();
-            $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
+            if($file){
+                $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
 
-            // Move the file to the directory where brochures are stored
             try {
                 $file->move(
                         $this->getParameter('users_directory'), $fileName
                 );
             } catch (FileException $e) {
-                // ... handle exception if something happens during file upload
             }
 
-            // updates the 'brochure' property to store the PDF file name
-            // instead of its contents
             $user->setPhoto($fileName);
+            }else{
+              $user->setPhoto($photo);  
+            }
+            
+            
 
             $user->setRoles(['ROLE_ADMIN']);
             $em->persist($user);
@@ -89,7 +91,8 @@ class UserController extends AbstractController {
 
         return $this->render('user/edit-user.html.twig', [
                     'form' => $form->createView(),
-                    'id' => $id
+                    'id' => $id,
+            'user'=>$user
                         ]
         );
     }

@@ -38,13 +38,20 @@ class ArticleController extends AbstractController {
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            //$file = $form->get('photo')->getData();
-            if ($article->getPhoto()) {
-                $file = $article->getPhoto();
-                $fileName = md5(uniqid()) . '.' . $file->guessExtension();
-                $file->move($this->getParameter('articles_directory'), $fileName);
-                $article->setphoto($fileName);
-            }
+            $file = $form->get('photo')->getData();
+            if ($file) {
+                $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
+
+                try {
+                    $file->move(
+                            $this->getParameter('articles_directory'), $fileName
+                    );
+                } catch (FileException $e) {
+                    
+                }
+
+                $article->setPhoto($fileName);
+            } 
 
             $article->setPublicated(0);
             $em->persist($article);
@@ -94,29 +101,28 @@ class ArticleController extends AbstractController {
         $em = $this->getDoctrine()->getManager();
 
         $article = $em->getRepository('App\Entity\Article')->find($id);
-
-        $file = $article->getPhoto();
+        $photo = $article->getPhoto();
         $form = $this->createForm(EditArticleType::class, $article);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $new_file = $form->get('photo')->getData();
-            if ($new_file === null) {
-                //$article->setPhoto($file);
-            } else {
-               // $fileName = $this->generateUniqueFileName() . '.' . $new_file->guessExtension();
-                
-                $fileName = md5(uniqid()) . '.' . $new_file->guessExtension();
-                $file->move($this->getParameter('articles_directory'), $fileName);
-             
+            $file = $form->get('photo')->getData();
+            if ($file) {
+                $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
+
                 try {
-                    //$file->move($this->getParameter('articles_directory'), $fileName);
+                    $file->move(
+                            $this->getParameter('articles_directory'), $fileName
+                    );
                 } catch (FileException $e) {
-                   dump($e); 
+                    
                 }
 
                 $article->setPhoto($fileName);
+            } else {
+                $article->setPhoto($photo);
             }
+
 
 
 
@@ -129,7 +135,8 @@ class ArticleController extends AbstractController {
 
         return $this->render('article/edit-article.html.twig', [
                     'form' => $form->createView(),
-                    'id' => $id
+                    'id' => $id,
+            'article'=>$article
                         ]
         );
     }

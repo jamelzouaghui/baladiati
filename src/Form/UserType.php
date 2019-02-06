@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,7 +21,7 @@ class UserType extends AbstractType {
                 ->add('email', TextType::class, array('label' => 'Email', 'attr' => array('class' => 'form-control')))
                 ->add('photo', FileType::class, array('label' => 'Photo', 'attr' => array('required'=>false,'class' => 'form-control')))
                 ->add('profession', TextType::class, array('label' => 'Profession', 'attr' => array('class' => 'form-control')))
-                ->add('cv', TextType::class, array('label' => 'Cv', 'attr' => array('class' => 'form-control')))
+                ->add('cv', TextareaType::class, array('label' => 'Cv', 'attr' => array('class' => 'form-control')))
                 ->add('password', RepeatedType::class, array(
                     'type' => PasswordType::class,
                     'first_options' => array('label' => 'Password','attr' => array('class' => 'form-control')),

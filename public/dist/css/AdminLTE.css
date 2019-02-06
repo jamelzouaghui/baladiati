@@ -2247,7 +2247,7 @@ input.btn.btn-primary {
 }
 .btn-primary {
     background-color: #4bb056;
-    border-color: #4bb056;
+    
 }
 .btn-primary:hover,
 .btn-primary:active,
@@ -3282,6 +3282,11 @@ table.text-center th {
     padding: 20px;
     border-top: 0;
     color: #666;
+    -webkit-box-shadow: 0px 0px 20px 2px #8f979c;
+    -moz-box-shadow: 0px 0px 20px 2px #8f979c;
+    -ms-box-shadow: 0px 0px 20px 2px #8f979c;
+    -o-box-shadow: 0px 0px 20px 2px #8f979c;
+    box-shadow: 0px 0px 20px 2px #8f979c;
 }
 .login-box-body .form-control-feedback,
 .register-box-body .form-control-feedback {

@@ -29,10 +29,14 @@ $(function () {
         'info': true,
         'autoWidth': true
     })
-    $('#article_createdAt').datepicker({
-        autoclose: true,
-         dateFormat: 'dd/mm/yy'
-    })
+
+
+    $('.js-datepicker').datepicker({
+    
+    });
+
+
+
 
     $('.select2').select2({
         closeOnSelect: false,

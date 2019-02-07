@@ -19,6 +19,8 @@
 
         <link rel="stylesheet" href="{{ asset('dist/css/skins/_all-skins.min.css')}}">
         <link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
+        
+         <link rel="stylesheet" href="{{ asset('bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css')}}">
 
         <link href=" {{ asset('bower_components/select2/dist/css/select2.min.css')}}" rel="stylesheet" />
         <link rel="stylesheet" href="{{asset('dist/css/AdminLTE.css')}}">
@@ -300,7 +302,7 @@
                             </li>
                             <!-- Control Sidebar Toggle Button -->
                             <li>
-                                <a href="{{path('app_logout')}}" ><i class="fa fa-sign-out"></i></a>
+                                <a href="{{path('app_logout')}}" ><i class="fa fa-expeditedssl"></i></a>
                             </li>
                         </ul>
                     </div>
@@ -332,19 +334,19 @@
                     <ul class="sidebar-menu" data-widget="tree">
                         <li>
                             <a href="{{path('dashboard')}}">
-                                <i class="fa fa-envelope"></i> <span>Présentation</span>
+                                <i class="fa  fa-book"></i> <span>Présentation</span>
 
                             </a>
                         </li>
                         <li>
                             <a href="{{path('list-article')}}">
-                                <i class="fa fa-envelope"></i> <span>Actualités</span>
+                                <i class="fa fa-indent"></i> <span>Actualités</span>
 
                             </a>
                         </li>
                         <li>
                             <a href="#">
-                                <i class="fa fa-envelope"></i> <span>Réalisation</span>
+                                <i class="fa fa-building"></i> <span>Réalisation</span>
 
                             </a>
                         </li>
@@ -356,13 +358,13 @@
                         </li>
                         <li>
                             <a href="{{path('agenda')}}">
-                                <i class="fa fa-envelope"></i> <span>Agenda</span>
+                                <i class="fa fa-calendar"></i> <span>Agenda</span>
 
                             </a>
                         </li>
                         <li>
                             <a href="{{path('institution')}}">
-                                <i class="fa fa-envelope"></i> <span>Numéros Utils</span>
+                                <i class="fa fa-phone-square"></i> <span>Numéros Utils</span>
 
                             </a>
                         </li>

@@ -10,6 +10,10 @@
         width: 100%; 
 
     }
+    img.img-circle {
+        width: 100px;
+        height:100%;
+}
 </style>
 
 <div class="modal fade" id="modal-user-edit-{{id}}">
@@ -18,7 +22,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Default Modal</h4>
+                <h4 class="modal-title">Modifier Député</h4>
             </div>
             <div class="modal-body">
                 {{ form_start(form, { 'action': path('edit-user', { 'id': id }), 'attr': { 'class': 'edit-user' } }) }}
@@ -40,7 +44,7 @@
                 <div class="form-group">
                     <label >Photo</label>
                     {%if user.photo is empty %}
-                        <img src="{{ asset('uploads/users/avatar.jpg' ) }}" class="img-circle" alt="User " >
+                        <img src="{{ asset('uploads/users/avatar.jpg' ) }}" class="img-circle" style="height:100px;width:100%;" alt="User " >
 
                     {%else%}
                         <img src="{{ asset('uploads/users/' ~ user.photo) }}" class="img-circle" alt="User Image" >

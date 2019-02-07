@@ -4,7 +4,7 @@ namespace App\Form;
 
 use App\Entity\Agenda;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,7 +15,15 @@ class AgendaType extends AbstractType {
         $builder
                 ->add('title', TextType::class, array('label' => 'Titre', 'attr' => array('class' => 'form-control')))
                 ->add('adress', TextType::class, array('label' => 'Adresse', 'attr' => array('class' => 'form-control')))
-                ->add('createdAt', DateTimeType::class, array('label' => 'date de creation', 'attr' => array('class' => 'form-control')))
+                ->add('createdAt', DateType::class, array(
+                    'html5' => false,
+                    'widget' => 'single_text',
+                    'label' => 'date de creation',
+                    'attr' => array(
+                        'class' => 'js-datepicker form-control'
+                    )
+                        )
+                )
         ;
     }
 

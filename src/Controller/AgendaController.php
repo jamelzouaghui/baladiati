@@ -39,6 +39,7 @@ class AgendaController extends AbstractController {
 
             $em->persist($agenda);
             $em->flush();
+              $this->addFlash('success', 'évenement créer! succées!');
             return $this->redirectToRoute('agenda');
         }
 
@@ -65,6 +66,7 @@ class AgendaController extends AbstractController {
 
             $em->persist($event);
             $em->flush();
+             $this->addFlash('success', 'évenement modifier! succées!');
             return $this->redirectToRoute('agenda');
         }
 
@@ -90,6 +92,7 @@ class AgendaController extends AbstractController {
         if ($event) {
             $em->remove($event);
             $em->flush();
+             $this->addFlash('success', 'évenement supprimer! succées!');
             //$request->getSession()->getFlashBag()->add('notice', array('alert' => 'success', 'title' => $trans->trans('message.title.succes'), 'message' => $trans->trans('message.text.succes')));
         } else {
             throw $this->createNotFoundException('Unable to find event entity.');

@@ -56,6 +56,7 @@ class ArticleController extends AbstractController {
             $article->setPublicated(0);
             $em->persist($article);
             $em->flush();
+             $this->addFlash('success', 'article ajouter! succées!');
             return $this->redirectToRoute('list-article');
         }
 
@@ -76,6 +77,7 @@ class ArticleController extends AbstractController {
         $article->setPublicated(1);
         $em->persist($article);
         $em->flush();
+        $this->addFlash('success', 'article publier! succées!');
         return $this->redirect($this->generateUrl('list-article'));
     }
 
@@ -90,6 +92,7 @@ class ArticleController extends AbstractController {
         $article->setPublicated(0);
         $em->persist($article);
         $em->flush();
+         $this->addFlash('success', 'article dépublier! succées!');
         return $this->redirect($this->generateUrl('list-article'));
     }
 
@@ -130,6 +133,7 @@ class ArticleController extends AbstractController {
             $article->setPublicated(0);
             $em->persist($article);
             $em->flush();
+            $this->addFlash('success', 'article modifier! succées!');
             return $this->redirectToRoute('list-article');
         }
 
@@ -164,6 +168,7 @@ class ArticleController extends AbstractController {
         if ($article) {
             $em->remove($article);
             $em->flush();
+            $this->addFlash('success', 'article supprimer! succées!');
             //$request->getSession()->getFlashBag()->add('notice', array('alert' => 'success', 'title' => $trans->trans('message.title.succes'), 'message' => $trans->trans('message.text.succes')));
         } else {
             throw $this->createNotFoundException('Unable to find article entity.');

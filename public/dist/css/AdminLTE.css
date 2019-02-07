@@ -2247,7 +2247,7 @@ input.btn.btn-primary {
 }
 .btn-primary {
     background-color: #4bb056;
-    
+
 }
 .btn-primary:hover,
 .btn-primary:active,
@@ -4514,9 +4514,14 @@ table.text-center th {
 .label-success,
 .modal-success .modal-body {
     background-color: #00a65a !important;
+    width: 300px;
+    position: absolute;
+    right: 0;
+    z-index:99999;
 }
 .bg-navy {
     background-color: #001f3f !important;
+
 }
 .bg-teal {
     background-color: #39cccc !important;

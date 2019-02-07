@@ -39,6 +39,7 @@ class InstitutionController extends AbstractController {
 
             $em->persist($institution);
             $em->flush();
+            $this->addFlash('success', 'institution ajouter ! succées!');
             return $this->redirectToRoute('institution');
         }
 
@@ -64,6 +65,7 @@ class InstitutionController extends AbstractController {
 
             $em->persist($institution);
             $em->flush();
+             $this->addFlash('success', 'institution modifier ! succées!');
             return $this->redirectToRoute('institution');
         }
 
@@ -88,6 +90,7 @@ class InstitutionController extends AbstractController {
         if ($institution) {
             $em->remove($institution);
             $em->flush();
+             $this->addFlash('success', 'institution supprimer ! succées!');
             //$request->getSession()->getFlashBag()->add('notice', array('alert' => 'success', 'title' => $trans->trans('message.title.succes'), 'message' => $trans->trans('message.text.succes')));
         } else {
             throw $this->createNotFoundException('Unable to find institution entity.');

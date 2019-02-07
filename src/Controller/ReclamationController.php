@@ -54,6 +54,7 @@ class ReclamationController extends AbstractController {
 
             $em->persist($reclamation);
             $em->flush();
+             $this->addFlash('success', 'reclamation modifier ! succées!');
             return $this->redirectToRoute('reclamation');
         }
 

@@ -42,7 +42,9 @@ class UserController extends AbstractController {
             $user->setRoles(['ROLE_USER']);
             $em->persist($user);
             $em->flush();
+              $this->addFlash('success', 'député Créer! succées!');
             return $this->redirectToRoute('dashboard');
+           
         }
 
         return $this->render('user/add-user.html.twig', [
@@ -86,6 +88,7 @@ class UserController extends AbstractController {
             $user->setRoles(['ROLE_ADMIN']);
             $em->persist($user);
             $em->flush();
+            $this->addFlash('success', 'député modifier! succées!');
             return $this->redirectToRoute('dashboard');
         }
 
@@ -118,6 +121,7 @@ class UserController extends AbstractController {
         if ($user) {
             $em->remove($user);
             $em->flush();
+            $this->addFlash('success', 'député supprimer! succées!');
             //$request->getSession()->getFlashBag()->add('notice', array('alert' => 'success', 'title' => $trans->trans('message.title.succes'), 'message' => $trans->trans('message.text.succes')));
         } else {
             throw $this->createNotFoundException('Unable to find user entity.');

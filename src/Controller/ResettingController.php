@@ -113,7 +113,7 @@ class ResettingController extends AbstractController {
             $em->persist($user);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('success', "Votre mot de passe a été renouvelé.");
+             $this->addFlash('success', "Votre mot de passe a été renouvelé.");
 
             return $this->redirectToRoute('app_login');
         }

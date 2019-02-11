@@ -8,5 +8,10 @@
     <body>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
+        <script>
+            setTimeout(function () {
+                $('#successMessage').fadeOut('slow');
+            }, 2000);
+        </script>
     </body>
 </html>

@@ -10,6 +10,7 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 class UserController extends AbstractController {
 
@@ -17,7 +18,7 @@ class UserController extends AbstractController {
      * @Route("/adduser" , name="add-user")
      * 
      */
-    public function addUser(Request $request, UserPasswordEncoderInterface $encoder) {
+    public function addUser(Request $request, UserPasswordEncoderInterface $encoder, TokenGeneratorInterface $tokenGenerator) {
         $em = $this->getDoctrine()->getManager();
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -40,50 +41,58 @@ class UserController extends AbstractController {
             $encoded = $encoder->encodePassword($user, $password);
             $user->setPassword($encoded);
             $user->setRoles(['ROLE_USER']);
+//            // création du token
+//            $user->setToken($tokenGenerator->generateToken());
+//            // enregistrement de la date de création du token
+//            $user->setPasswordRequestedAt(new \Datetime());
             $em->persist($user);
             $em->flush();
-              $this->addFlash('success', 'député Créer! succées!');
+            $this->addFlash('success', 'député Créer! succées!');
             return $this->redirectToRoute('dashboard');
-           
         }
 
         return $this->render('user/add-user.html.twig', [
                     'form' => $form->createView()
-            
-            
                         ]
         );
     }
 
     /**
-     * @Route("/{id}/edituser" , name="edit-user")
+     * @Route("/{id}/update-user" , name="edit-user")
      * 
      */
     public function editUser(Request $request, UserPasswordEncoderInterface $encoder, $id) {
+    
         $em = $this->getDoctrine()->getManager();
+
         $user = $em->getRepository('App\Entity\User')->find($id);
+
         $photo = $user->getPhoto();
-       
+
         $form = $this->createForm(EditUserType::class, $user);
         $form->handleRequest($request);
+
+
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $form->get('photo')->getData();
-            if($file){
+
+            if ($file) {
                 $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
 
-            try {
-                $file->move(
-                        $this->getParameter('users_directory'), $fileName
-                );
-            } catch (FileException $e) {
+                try {
+                    $file->move(
+                            $this->getParameter('users_directory'), $fileName
+                    );
+                } catch (FileException $e) {
+                    
+                }
+
+                $user->setPhoto($fileName);
+            } else {
+                $user->setPhoto($photo);
             }
 
-            $user->setPhoto($fileName);
-            }else{
-              $user->setPhoto($photo);  
-            }
-            
-            
+
 
             $user->setRoles(['ROLE_ADMIN']);
             $em->persist($user);
@@ -95,7 +104,7 @@ class UserController extends AbstractController {
         return $this->render('user/edit-user.html.twig', [
                     'form' => $form->createView(),
                     'id' => $id,
-            'user'=>$user
+                    'user' => $user
                         ]
         );
     }
@@ -128,12 +137,6 @@ class UserController extends AbstractController {
         }
 
         return $this->redirectToRoute('dashboard');
-
-
-//        return $this->render('user/edit-user.html.twig', [
-//                    'form' => $form->createView()
-//                        ]
-//        );
     }
 
 }

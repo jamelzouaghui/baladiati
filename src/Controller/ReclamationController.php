@@ -16,7 +16,7 @@ class ReclamationController extends AbstractController {
      * @Route("/reclamation", name="reclamation")
      */
     public function index(EntityManagerInterface $em) {
-    
+
         $em = $this->getDoctrine()->getManager();
         $reclamations = $em->getRepository(AbstractGMap::class)->findAll();
 
@@ -29,16 +29,16 @@ class ReclamationController extends AbstractController {
     /**
      * @Route("/list/reclamation", name="list-reclamation",options={"expose"=true})
      */
-    public function listReclamation(Request $request,EntityManagerInterface $em) {
+    public function listReclamation(Request $request, EntityManagerInterface $em) {
         $em = $this->getDoctrine()->getManager();
         $reclamations = $em->getRepository(AbstractGMap::class)->findAll();
         $response['reclamations'] = $this->getReclamationsAsArray($reclamations);
-        
-        
+
+
         return new JsonResponse($response);
     }
-    
-     /**
+
+    /**
      * @Route("/{id}/editReclamation" , name="edit-reclamation")
      * 
      */
@@ -54,17 +54,17 @@ class ReclamationController extends AbstractController {
 
             $em->persist($reclamation);
             $em->flush();
-             $this->addFlash('success', 'reclamation modifier ! succées!');
+            $this->addFlash('success', 'reclamation modifier ! succées!');
             return $this->redirectToRoute('reclamation');
         }
 
         return $this->render('reclamation/edit-reclamation.html.twig', [
                     'form' => $form->createView(),
-                    'id'=>$id
+                    'id' => $id
                         ]
         );
     }
-    
+
     /**
      * Get a reclamation   as array
      * @return array
@@ -77,34 +77,50 @@ class ReclamationController extends AbstractController {
             } else {
                 $adress = '';
             }
-            
-             if ($reclamation->getName()) {
+
+            if ($reclamation->getName()) {
                 $name = $reclamation->getName();
             } else {
                 $name = '';
             }
-            
-             if ($reclamation->getCity()) {
+
+            if ($reclamation->getCity()) {
                 $city = $reclamation->getCity();
             } else {
                 $city = '';
             }
-            
-             if ($reclamation->getLatitude()) {
+
+            if ($reclamation->getLatitude()) {
                 $latitude = $reclamation->getLatitude();
             } else {
                 $latitude = '';
             }
-             if ($reclamation->getLongitude()) {
+            if ($reclamation->getLongitude()) {
                 $longitude = $reclamation->getLongitude();
             } else {
                 $longitude = '';
             }
-            
+
             $response[] = array('id' => $reclamation->getId(), 'adress' => $adress, 'name' => $name, 'city' => $city, 'latitude' => $latitude, 'longitude' => $longitude);
         }
         return $response;
     }
-    
+
+    /**
+     * Get a reclamation   
+     * @return 
+     */
+    public function getReclamationNumber( EntityManagerInterface $em) {
+         $em = $this->getDoctrine()->getManager();
+         $reclamationsUnread = $em->getRepository(AbstractGMap::class)->findReclamationsUnread();
+dump($reclamationsUnread);
+die();
+        
+        
+                
+                
+               
+       
+    }
 
 }

@@ -49,4 +49,14 @@ class UserRepository extends ServiceEntityRepository
         ;
     }
     */
+    
+   public function loadUserByUsername($username)
+    {
+        return $this->createQueryBuilder('u')
+            ->where(' u.email = :email')
+            ->setParameter('email', $username)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 }

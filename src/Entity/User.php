@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Validator\Constraints as Assert;
+
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -77,6 +78,33 @@ class User implements UserInterface {
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $createdBy;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @var \DateTime
+     */
+    private $passwordRequestedAt;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $token;
+
+    /**
+     * 
+     * @Assert\Length(max=4096)
+     */
+    private $plainPassword;
+
+    public function getPlainPassword() {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword($password) {
+        $this->plainPassword = $password;
+    }
 
     public function getId() {
         return $this->id;
@@ -225,8 +253,41 @@ class User implements UserInterface {
 
         return $this;
     }
-    
-    
+
+    /*
+     * Get passwordRequestedAt
+     */
+
+    public function getPasswordRequestedAt() {
+        return $this->passwordRequestedAt;
+    }
+
+    /*
+     * Set passwordRequestedAt
+     */
+
+    public function setPasswordRequestedAt($passwordRequestedAt) {
+        $this->passwordRequestedAt = $passwordRequestedAt;
+        return $this;
+    }
+
+    /*
+     * Get token
+     */
+
+    public function getToken() {
+        return $this->token;
+    }
+
+    /*
+     * Set token
+     */
+
+    public function setToken($token) {
+        $this->token = $token;
+        return $this;
+    }
+
     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate

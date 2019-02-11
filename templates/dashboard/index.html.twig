@@ -51,10 +51,12 @@
                         <td>
                              <a href="#" data-toggle="modal" data-target="#modal-user-edit-{{user.id}}" class="btn btn-social-icon btn-dropbox" ><i class="fa fa-edit"></i></a>
                             <a href="{{path('delete-user',{'id':user.id})}}" class="btn btn-social-icon btn-danger"><i class="fa fa-times"></i></a>
-                            {{ render(controller( 'App\\Controller\\UserController::editUser',{'id':user.id} )) }}
+                           
                         </td>
                     </tr>
+                    {{ render(controller( 'App\\Controller\\UserController::editUser',{'id':user.id,'token': user.token } )) }}
                 {%endfor%}
+                 
             </tbody>
 
         </table>

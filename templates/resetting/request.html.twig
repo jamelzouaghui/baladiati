@@ -1,3 +1,4 @@
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Log in!{% endblock %}
@@ -44,29 +45,12 @@
         </div>
         <!-- /.login-logo -->
         <div class="login-box-body">
-            <h2 class="login-box-msg">Authentification</h2>
+            <h2 class="login-box-msg">Mot de passe oublié</h2>
 
-            <form method="post">
-
-                {%if error%}
-                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                {%endif%}
-
-
-                <div class="form-group has-feedback">
-                    <input type="text" id="inputEmail"  name="email" class="form-control" placeholder="{{ 'Login'|trans }}" required="required" value="{{last_username}}" />
-                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                </div>
-                <div class="form-group has-feedback">
-                    <input type="password" name="password" id="password" class="form-control" placeholder="{{ 'Mot de passe'|trans }}" required="required" />
-                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                </div>
-                <input type="hidden" name="_csrf_token"value="{{ csrf_token('authenticate') }}" >
-
-                <button class="btn  btn-primary btn-sm" type="submit"> Se connecter</button>
-                <br>
-                <a href="{{path('request_resetting')}}" class="reset-password">Réinsialiser mot de passe</a>
-            </form>
+            {{form_start(form)}}
+            {{form_row(form.email)}}
+            <button  class="btn  btn-primary btn-sm"  type="submit">Envoyer</button>
+            {{form_end(form)}}
 
 
 

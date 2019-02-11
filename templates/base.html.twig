@@ -22,6 +22,7 @@
     {% endfor %}
 {% block body %}{% endblock %}
 {% block javascripts %}{% endblock %}
+<script src="{{ asset('bower_components/jquery/dist/jquery.min.js')}}"></script>
 <script>
     setTimeout(function () {
         $('#successMessage').fadeOut('slow');

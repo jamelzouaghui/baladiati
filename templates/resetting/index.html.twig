@@ -1,7 +1,7 @@
 
 
 
-{% block title %}Renouvellement du mot de passe{% endblock %}
+{% block title %}{% endblock %}
 
 
 {% block body %}
@@ -50,6 +50,7 @@
             {{form_start(form)}}
             {{form_row(form.plainPassword.first)}}
             {{form_row(form.plainPassword.second)}}
+            <br>
             <button class="btn  btn-primary btn-sm"  type="submit">Envoyer</button>
             {{form_end(form)}}
 

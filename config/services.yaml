@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'fr'
+    session_max_idle_time: 180
     users_directory: '%kernel.project_dir%/public/uploads/users'
     articles_directory: '%kernel.project_dir%/public/uploads/articles'
     
@@ -39,3 +40,9 @@ services:
         tags:
             - { name: doctrine.event_listener, event: prePersist }
             - { name: doctrine.event_listener, event: preUpdate }
+   
+   
+    App.Handler.SessionIdle:
+        class: App\Security\SessionIdHandler
+        arguments: ['%session_max_idle_time%']
+        tags: [{ name: kernel.event_listener, event: kernel.request }]

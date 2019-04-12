@@ -89,7 +89,7 @@ class ApiUserController extends FOSRestController {
 
     /**
      * Retrieves an Articles resource
-     *  @Rest\Get("/login_check")
+     *  @Rest\Post("/login_check")
      */
     public function loginCheck(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -97,10 +97,10 @@ class ApiUserController extends FOSRestController {
         $email = $request->get('email');
         $passwordCrypt = $request->get('password');
         
-        $email = "jamel.arya@gmail.com";
-        $password= "password";
+//        $email = "jamel.arya@gmail.com";
+//        $password= "password";
         
-        $user = $em->getRepository('App\Entity\User')->findBy(array('email' => $email,'passwordecryp' => $password));
+        $user = $em->getRepository('App\Entity\User')->findBy(array('email' => $email,'passwordecryp' => $passwordCrypt));
 
         if (!count($user)) {
             $response = array(

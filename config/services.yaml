@@ -46,3 +46,7 @@ services:
         class: App\Security\SessionIdHandler
         arguments: ['%session_max_idle_time%']
         tags: [{ name: kernel.event_listener, event: kernel.request }]
+        
+        
+    sensio_framework_extra.view.listener:
+        alias: Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener

@@ -40,6 +40,7 @@ class UserController extends AbstractController {
             }
             $encoded = $encoder->encodePassword($user, $password);
             $user->setPassword($encoded);
+			 $user->setPasswordecryp($password);
             $user->setRoles(['ROLE_USER']);
 //            // création du token
 //            $user->setToken($tokenGenerator->generateToken());

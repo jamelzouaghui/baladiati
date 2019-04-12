@@ -38,6 +38,12 @@ class User implements UserInterface {
      * @ORM\Column(type="string")
      */
     private $password;
+    
+     /**
+     * @var string The hashed password
+     * @ORM\Column(type="string")
+     */
+    private $passwordecryp;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -158,6 +164,19 @@ class User implements UserInterface {
 
         return $this;
     }
+    
+   
+    public function getPasswordecryp() {
+        return (string) $this->passwordecryp;
+    }
+
+    public function setPasswordecryp($passwordecryp) {
+        $this->passwordecryp = $passwordecryp;
+
+        return $this;
+    }
+    
+    
 
     /**
      * @see UserInterface

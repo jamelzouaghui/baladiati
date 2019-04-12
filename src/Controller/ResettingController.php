@@ -104,6 +104,7 @@ class ResettingController extends AbstractController {
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
+             $user->setPasswordecryp($user->getPlainPassword());
 
             // réinitialisation du token à null pour qu'il ne soit plus réutilisable
             $user->setToken(null);

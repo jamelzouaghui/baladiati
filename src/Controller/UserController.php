@@ -127,7 +127,7 @@ class UserController extends AbstractController {
         $em = $this->getDoctrine()->getManager();
 
         $user = $em->getRepository('App\Entity\User')->find($id);
-
+ 
         if ($user) {
             $em->remove($user);
             $em->flush();
@@ -136,8 +136,13 @@ class UserController extends AbstractController {
         } else {
             throw $this->createNotFoundException('Unable to find user entity.');
         }
+         $users = $em->getRepository('App\Entity\User')->findAll();
+ 
+        return $this->render('dashboard/index.html.twig', [
+           'users'=> $users
+                        ]
+        );
 
-        return $this->redirectToRoute('dashboard');
     }
 
 }

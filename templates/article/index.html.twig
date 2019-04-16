@@ -5,7 +5,7 @@
 
         <li>
             <a type="button" class="btn btn-block btn-success" data-toggle="modal" data-target="#modal-add-artilce">
-                Ajouter article
+                Ajouter actualité
             </a>
             {{ render(controller( 'App\\Controller\\ArticleController::addArticle' )) }}
         </li>
@@ -43,7 +43,7 @@
 
 
                 <td>
-                    <a href="{{path('delete-article',{'id':article.id})}}"type="button" class="btn btn-block btn-danger btn-xs">Supprimer</a>
+                    <a href="#" data-href="{{path('delete-article',{'id':article.id})}}"type="button" class="btn btn-block btn-danger btn-xs" data-toggle="modal" data-target="#confirm-delete-{{article.id}}">Supprimer</a>
                     <a  href="#"data-toggle="modal" data-target="#modal-article-edit-{{article.id}}" type="button" class="btn btn-block btn-info btn-xs">Modifier</a>
                     {{ render(controller( 'App\\Controller\\ArticleController::editArticle',{'id':article.id} )) }}
                 </td>
@@ -55,6 +55,23 @@
         </div>
 
         <hr style="border-top: 1px solid #e0cacade;">
+        
+         <div class="modal fade" id="confirm-delete-{{article.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                Confirmation de suppression
+                            </div>
+                            <div class="modal-body">
+                                Voulez-vous vraiment supprimer cet actualité
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <a  href="{{path('delete-article',{'id':article.id})}}" class="btn btn-danger btn-ok">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
     {%endfor%}
 
     <script>

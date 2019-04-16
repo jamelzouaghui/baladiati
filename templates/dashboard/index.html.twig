@@ -2,13 +2,13 @@
 {% block headTile %}
 
     <ol class="breadcrumb">
-      
-        
+
+
         <li>
             <a type="button" class="btn btn-block btn-success btn-sm" data-toggle="modal" data-target="#modal-user-add">
-               Ajouter User
+                Ajouter Députés
             </a>
-           {{ render(controller( 'App\\Controller\\UserController::addUser' )) }}
+            {{ render(controller( 'App\\Controller\\UserController::addUser' )) }}
         </li>
 
     </ol>
@@ -35,7 +35,7 @@
                             <div class="pull-left image">
                                 {%if user.photo is empty %}
                                     <img src="{{ asset('uploads/users/avatar.jpg' ) }}" class="img-circle" alt="User " style="width: 50px;">
-                                    
+
                                 {%else%}
                                     <img src="{{ asset('uploads/users/' ~ user.photo) }}" class="img-circle" alt="User Image" style="width: 50px;">
                                 {%endif%}
@@ -49,16 +49,34 @@
                         <th>{{user.cv}}</th>
                         <td>{{user.createdAt |date('d/m/Y')}}</td>
                         <td>
-                             <a href="#" data-toggle="modal" data-target="#modal-user-edit-{{user.id}}" class="btn btn-social-icon btn-dropbox" ><i class="fa fa-edit"></i></a>
-                            <a href="{{path('delete-user',{'id':user.id})}}" class="btn btn-social-icon btn-danger"><i class="fa fa-times"></i></a>
-                           
+                            <a href="#" data-toggle="modal" data-target="#modal-user-edit-{{user.id}}" class="btn btn-social-icon btn-dropbox" ><i class="fa fa-edit"></i></a>
+                            <a href="#" data-href="{{path('delete-user',{'id':user.id})}}" class="btn btn-social-icon btn-danger" data-toggle="modal" data-target="#confirm-delete-{{user.id}}"><i class="fa fa-times"></i></a>
+
                         </td>
                     </tr>
                     {{ render(controller( 'App\\Controller\\UserController::editUser',{'id':user.id,'token': user.token } )) }}
-                {%endfor%}
-                 
+
+                <div class="modal fade" id="confirm-delete-{{user.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                Confirmation de suppression
+                            </div>
+                            <div class="modal-body">
+                                Voulez-vous vraiment supprimer ce contact
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <a  href="{{path('delete-user',{'id':user.id})}}" class="btn btn-danger btn-ok">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {%endfor%}
+
             </tbody>
 
         </table>
     </div>
+    
 {% endblock %}

@@ -1,0 +1,48 @@
+
+
+<div class="modal fade" id="modal-depute-add">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Ajouter Député</h4>
+            </div>
+            <div class="modal-body">
+                {{ form_start(form, { 'action': path('add-depute'), 'attr': { 'class': 'add-depute' } }) }}
+
+                <div class="form-group">
+
+                    <label >Prénom</label>
+                    {{ form_widget(form.firstname)}}
+                </div>
+                <div class="form-group">
+                    <label >Nom</label>
+                    {{ form_widget(form.lastname)}}
+                </div>
+               
+
+                <div class="form-group">
+                    <label >Photo</label>
+                    {{form_widget(form.photo)}}
+                </div>
+                <div class="form-group">
+                    <label >Profession</label>
+                    {{form_widget(form.fonction)}}
+                </div>
+                <div class="form-group">
+                    <label >CV</label>
+                    {{form_widget(form.cv)}}
+                </div>
+
+            </div>
+            <div class="modal-footer">
+               
+                <input type="submit" class="btn btn-primary"></input>
+            </div>
+            {{ form_end(form) }}
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

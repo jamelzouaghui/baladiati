@@ -2,17 +2,16 @@
 
 namespace App\Entity;
 
-use DateTimeInterface;
+use App\Repository\PresentationRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints\DateTime;
-use JMS\Serializer\Annotation as JMS;
 
 /**
- * @ORM\Table(name="article")
- * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
- * @JMS\ExclusionPolicy("all")
+ *  @ORM\Table(name="presentation")
+ * @ORM\Entity(repositoryClass="App\Repository\PresentationRepository")
+ * @ORM\HasLifecycleCallbacks
+ * @ORM\MappedSuperclass
  */
-class Article {
+class Presentation {
 
     /**
      * @ORM\Id()
@@ -22,48 +21,27 @@ class Article {
     private $id;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
-
-     */
-    private $photo;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $title;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string", length=255)
      */
     private $content;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime")
      */
     private $updatedAt;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $publicated;
-
     public function getId() {
         return $this->id;
-    }
-
-    public function getPhoto() {
-        return $this->photo;
-    }
-
-    public function setPhoto($photo) {
-        $this->photo = $photo;
-
-        return $this;
     }
 
     public function getTitle() {
@@ -90,7 +68,7 @@ class Article {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(DateTimeInterface $createdAt) {
+    public function setCreatedAt( $createdAt) {
         $this->createdAt = $createdAt;
 
         return $this;
@@ -106,25 +84,15 @@ class Article {
         return $this;
     }
 
-    public function getPublicated() {
-        return $this->publicated;
-    }
-
-    public function setPublicated($publicated) {
-        $this->publicated = $publicated;
-
-        return $this;
-    }
-
     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
     public function updatedTimestamps() {
-        $dateTimeNow = new DateTime('now');
-        $this->setUpdatedAt($dateTimeNow);
-        if ($this->getCreatedAt() === null) {
-            $this->setCreatedAt($dateTimeNow);
+        $this->setUpdatedAt(new \DateTime('now'));
+
+        if ($this->getCreatedAt() == null) {
+            $this->setCreatedAt(new \DateTime('now'));
         }
     }
 

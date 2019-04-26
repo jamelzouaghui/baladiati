@@ -1,0 +1,108 @@
+{% extends 'template.html.twig' %}
+{% block headTile %}
+
+    <ol class="breadcrumb">
+
+
+        <li>
+            <a type="button" class="btn btn-block btn-success btn-sm" data-toggle="modal" data-target="#modal-presentation-add">
+                Créer une Presentation
+            </a>
+            {{ render(controller( 'App\\Controller\\DashboardController::addPresentation' )) }}
+        </li>
+        <li>
+            <a type="button" class="btn btn-block btn-success btn-sm" data-toggle="modal" data-target="#modal-depute-add">
+                Ajouter Députés
+            </a>
+            {{ render(controller( 'App\\Controller\\DashboardController::addDepute' )) }}
+        </li>
+
+    </ol>
+{% endblock %}
+{% block body %}
+    <div class="box-body">
+        {% for pres in presentation %}
+            <div class="callout callout-info">
+                <h4> {{pres.title}}</h4>
+                <p> {{pres.content}}</p>
+            </div>
+      <a href="#" data-toggle="modal" data-target="#modal-presentations-edit-{{pres.id}}" type="button" class="btn btn-block btn-info btn-xs">Modifier</a>
+       {{ render(controller( 'App\\Controller\\DashboardController::editPresentation',{'id':pres.id} )) }}
+        
+        {%endfor%}
+
+
+       <table id="example2" class=" table table-bordered table-hover dataTable" role="grid">
+             <thead>
+                 <tr>
+                     <th>Photo</th>
+                     <th>Nom et Prenom</th>
+                     <th>Profession</th>
+                     <th>cv</th>
+                     <th>Date de Création</th>
+                     <th>Action</th>
+                 </tr>
+             </thead>
+             <tbody>
+                 {% for depute in deputes %}
+                     <tr>
+                         <td> 
+ 
+                             <div class="pull-left image">
+                               {%if depute.photo is empty %}
+                                     <img src="{{ asset('uploads/users/avatar.jpg' ) }}" class="img-circle" alt="User " style="width: 50px;">
+ 
+                                 {%else%}
+                                     <img src="{{ asset('uploads/users/' ~ depute.photo) }}" class="img-circle" alt="User Image" style="width: 50px;">
+                                 {%endif%}
+ 
+                             </div>
+ 
+                         </td>
+                         <td>{{depute.firstname}}{{depute.firstname}}</td>
+                         
+                         <th>{{depute.fonction}}</th>
+                         <th>  
+                              <div class="pull-left image">
+                               {%if depute.cv is empty %}
+                                     <img src="{{ asset('uploads/users/avatar.jpg' ) }}" class="img-circle" alt="User " style="width: 50px;">
+ 
+                                 {%else%}
+                                     <img src="{{ asset('uploads/users/' ~ depute.cv) }}" class="img-circle" alt="User Image" style="width: 50px;">
+                                 {%endif%}
+ 
+                             </div>
+                         </th>
+                         <td>{{depute.createdAt |date('d/m/Y')}}</td>
+                         <td>
+                             {#<a href="#" data-toggle="modal" data-target="#modal-user-edit-{{user.id}}" class="btn btn-social-icon btn-dropbox" ><i class="fa fa-edit"></i></a>
+                             <a href="#" data-href="{{path('delete-user',{'id':user.id})}}" class="btn btn-social-icon btn-danger" data-toggle="modal" data-target="#confirm-delete-{{user.id}}"><i class="fa fa-times"></i></a>
+ #}
+                         </td>
+                     </tr>
+                    {# {{ render(controller( 'App\\Controller\\UserController::editUser',{'id':user.id,'token': user.token } )) }}#}
+ 
+                {# <div class="modal fade" id="confirm-delete-{{user.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                     <div class="modal-dialog">
+                         <div class="modal-content">
+                             <div class="modal-header">
+                                 Confirmation de suppression
+                             </div>
+                             <div class="modal-body">
+                                 Voulez-vous vraiment supprimer ce contact
+                             </div>
+                             <div class="modal-footer">
+                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                 <a  href="{{path('delete-user',{'id':user.id})}}" class="btn btn-danger btn-ok">Delete</a>
+                             </div>
+                         </div>
+                     </div>
+                 </div>#}
+             {%endfor%}
+ 
+             </tbody>
+ 
+         </table>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,78 @@
+
+
+<style>
+    .form-inline .form-group {
+        display: block; 
+
+    }
+    .form-inline .form-control {
+        display: block; 
+        width: 100%; 
+
+    }
+    img.img-circle {
+        width: 100px;
+        height:100%;
+}
+</style>
+
+<div class="modal fade" id="modal-depute-edit-{{id}}">
+    
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Modifier Député</h4>
+            </div>
+            <div class="modal-body">
+                {{ form_start(form, { 'action': path('edit-depute', { 'id': id}), 'attr': { 'class': 'edit-depute' } }) }}
+
+                <div class="form-group">
+
+                    <label >Prénom</label>
+                    {{ form_widget(form.firstname)}}
+                </div>
+                <div class="form-group">
+                    <label >Nom</label>
+                    {{ form_widget(form.lastname)}}
+                </div>
+                
+
+                <div class="form-group">
+                    <label >Photo</label>
+                    {%if entity.photo is empty %}
+                        <img src="{{ asset('uploads/users/avatar.jpg' ) }}" class="img-circle" style="height:100px;width:100px;" alt="User " >
+
+                    {%else%}
+                        <img src="{{ asset('uploads/users/' ~ entity.photo) }}" class="img-circle" style="height:100px;width:100px;" alt="User Image" >
+                    {%endif%}
+
+                    {{form_widget(form.photo)}}
+                </div>
+                <div class="form-group">
+                    <label >Profession</label>
+                    {{form_widget(form.fonction)}}
+                </div>
+                <div class="form-group">
+                    <label >CV</label>
+                     {%if entity.cv is empty %}
+                        <img src="{{ asset('uploads/users/avatar.jpg' ) }}" class="img-circle" style="height:100px;width:100px;" alt="User " >
+
+                    {%else%}
+                        <img src="{{ asset('uploads/users/' ~ entity.cv) }}" class="img-circle" style="height:100px;width:100px;" alt="User Image" >
+                    {%endif%}
+                    {{form_widget(form.cv)}}
+                </div>
+
+            </div>
+            <div class="modal-footer">
+
+                <input type="submit" class="btn btn-primary"></input>
+            </div>
+            {{ form_end(form) }}
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

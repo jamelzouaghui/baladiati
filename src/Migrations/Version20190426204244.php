@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190426100654 extends AbstractMigration
+final class Version20190426204244 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -24,6 +24,7 @@ final class Version20190426100654 extends AbstractMigration
 
         $this->addSql('CREATE TABLE depute (id INT AUTO_INCREMENT NOT NULL, firstname VARCHAR(255) NOT NULL, lastname VARCHAR(255) NOT NULL, fonction VARCHAR(255) NOT NULL, photo VARCHAR(255) NOT NULL, cv VARCHAR(255) DEFAULT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE presentation (id INT AUTO_INCREMENT NOT NULL, title VARCHAR(255) NOT NULL, content VARCHAR(255) NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE user ADD passwordecryp VARCHAR(255) NOT NULL');
     }
 
     public function down(Schema $schema) : void
@@ -33,5 +34,6 @@ final class Version20190426100654 extends AbstractMigration
 
         $this->addSql('DROP TABLE depute');
         $this->addSql('DROP TABLE presentation');
+        $this->addSql('ALTER TABLE user DROP passwordecryp');
     }
 }

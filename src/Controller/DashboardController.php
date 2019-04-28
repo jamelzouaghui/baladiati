@@ -5,8 +5,11 @@ namespace App\Controller;
 use App\Entity\Depute;
 use App\Entity\Presentation;
 use App\Form\DeputeType;
+use App\Form\EditDeputeType;
+use App\Form\EditPresentationType;
 use App\Form\PresentationType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -18,21 +21,19 @@ class DashboardController extends AbstractController {
      */
     public function index(Request $request) {
 
-   $em = $this->getDoctrine()->getManager();
-  
-   $presentation = $em->getRepository('App\Entity\Presentation')->findAll();
-   $deputes = $em->getRepository('App\Entity\Depute')->findAll();
- 
+        $em = $this->getDoctrine()->getManager();
+
+        $presentation = $em->getRepository('App\Entity\Presentation')->findAll();
+        $deputes = $em->getRepository('App\Entity\Depute')->findAll();
+        $countpres = count($presentation);
         return $this->render('presentation/index.html.twig', [
-           'presentation'=> $presentation,
-               'deputes'=> $deputes
-        
+                    'presentation' => $presentation,
+                    'deputes' => $deputes,
+                    'nbpresentation' => $countpres
                         ]
         );
     }
-    
-    
-    
+
     /**
      * @Route("/add-presentation" , name="add-presentation")
      * 
@@ -45,7 +46,7 @@ class DashboardController extends AbstractController {
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-           
+
             $em->persist($entity);
             $em->flush();
             $this->addFlash('success', 'presentation Créer! succées!');
@@ -57,7 +58,38 @@ class DashboardController extends AbstractController {
                         ]
         );
     }
-     /**
+
+    /**
+     * @Route("/{id}/update-presentation" , name="edit-presentation")
+     * 
+     */
+    public function editPresentation(Request $request, $id) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $presentation = $em->getRepository('App\Entity\Presentation')->find($id);
+
+
+        $form = $this->createForm(EditPresentationType::class, $presentation);
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($presentation);
+            $em->flush();
+            $this->addFlash('success', 'presentation modifier! succées!');
+            return $this->redirectToRoute('dashboard');
+        }
+
+        return $this->render('presentation/edit-presentation.html.twig', [
+                    'form' => $form->createView(),
+                    'id' => $id,
+                    'presentation' => $presentation
+                        ]
+        );
+    }
+
+    /**
      * @Route("/add-depute" , name="add-depute")
      * 
      */
@@ -69,23 +101,23 @@ class DashboardController extends AbstractController {
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-           $file = $form->get('photo')->getData();
-           $filecv = $form->get('cv')->getData();
-        
-            if ($file) {
-                $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
-                $fileNamecv = $this->generateUniqueFileName() . '.' . $file->guessExtension();
-                try {
-                    $file->move($this->getParameter('users_directory'), $fileName);
-                    $filecv->move($this->getParameter('users_directory'), $fileNamecv);
-                } catch (FileException $e) {
-                    
-                }
+            $file = $form->get('photo')->getData();
+            $filecv = $form->get('cv')->getData();
 
-                $entity->setPhoto($fileName);
-                 $entity->setCv($fileNamecv);
-            } 
-            
+
+            $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
+            $fileNamecv = $this->generateUniqueFileName() . '.' . $filecv->guessExtension();
+            try {
+                $file->move($this->getParameter('users_directory'), $fileName);
+                $filecv->move($this->getParameter('users_directory'), $fileNamecv);
+            } catch (FileException $e) {
+                
+            }
+
+            $entity->setPhoto($fileName);
+            $entity->setCv($fileNamecv);
+
+
 
             $em->persist($entity);
             $em->flush();
@@ -98,8 +130,8 @@ class DashboardController extends AbstractController {
                         ]
         );
     }
-    
-     /**
+
+    /**
      * @return string
      */
     private function generateUniqueFileName() {
@@ -108,9 +140,84 @@ class DashboardController extends AbstractController {
         return md5(uniqid());
     }
 
-    
-  
-    
-   
+    /**
+     * @Route("/{id}/edit-depute" , name="edit-depute")
+     * 
+     */
+    public function editDepute(Request $request, $id) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('App\Entity\Depute')->find($id);
+
+        $photodepute = $entity->getPhoto();
+        $photocv = $entity->getCv();
+
+        $form = $this->createForm(EditDeputeType::class, $entity);
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form->get('photo')->getData();
+            $filecv = $form->get('cv')->getData();
+
+            if ($file || $filecv) {
+                $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
+                $fileNamecv = $this->generateUniqueFileName() . '.' . $filecv->guessExtension();
+
+                try {
+                    $file->move($this->getParameter('users_directory'), $fileName);
+                    $filecv->move($this->getParameter('users_directory'), $fileNamecv);
+                } catch (FileException $e) {
+                    
+                }
+
+                $entity->setPhoto($fileName);
+                $entity->setCv($fileNamecv);
+            } else {
+                $entity->setPhoto($photodepute);
+                $entity->setCv($photocv);
+            }
+
+            $em->persist($entity);
+            $em->flush();
+            $this->addFlash('success', 'député modifier! succées!');
+            return $this->redirectToRoute('dashboard');
+        }
+
+        return $this->render('presentation/edit-depute.html.twig', [
+                    'form' => $form->createView(),
+                    'id' => $id,
+                    'entity' => $entity
+                        ]
+        );
+    }
+
+    /**
+     * @Route("/{id}/deleteDepute" , name="delete-depute")
+     * 
+     */
+    public function DeleteDepute(Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
+
+        $depute = $em->getRepository('App\Entity\Depute')->find($id);
+
+        if ($depute) {
+            $em->remove($depute);
+            $em->flush();
+            $this->addFlash('success', 'député supprimer! succées!');
+            //$request->getSession()->getFlashBag()->add('notice', array('alert' => 'success', 'title' => $trans->trans('message.title.succes'), 'message' => $trans->trans('message.text.succes')));
+        } else {
+            throw $this->createNotFoundException('Unable to find user entity.');
+        }
+        $deputes = $em->getRepository('App\Entity\Depute')->findAll();
+        $presentation = $em->getRepository('App\Entity\Presentation')->findAll();
+        return $this->redirectToRoute('dashboard');
+        return $this->render('presentation/index.html.twig', [
+                    'deputes' => $deputes,
+                    'deputes' => $presentation
+                        ]
+        );
+    }
 
 }

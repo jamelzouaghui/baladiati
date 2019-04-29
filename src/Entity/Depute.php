@@ -42,6 +42,7 @@ class Depute
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * 
      */
     private $cv;
 

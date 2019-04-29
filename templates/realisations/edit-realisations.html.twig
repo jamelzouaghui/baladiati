@@ -1,0 +1,55 @@
+
+
+<style>
+    .form-inline .form-group {
+        display: block; 
+
+    }
+    .form-inline .form-control {
+        display: block; 
+        width: 100%; 
+
+    }
+</style>
+
+<div class="modal fade" id="modal-realisations-edit-{{id}}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Modifier Realisation</h4>
+            </div>
+            <div class="modal-body">
+                {{ form_start(form, { 'action': path('edit-realisatons', { 'id': id }), 'attr': { 'class': 'edit-realisatons' } }) }}
+
+                <div class="form-group">
+
+                    {{ form_widget(form.title)}}
+                </div>
+               
+                <div class="form-group">
+                    {{ form_widget(form.content)}}
+                </div>
+                <div class="form-group">
+                    {%if realisaton.photo is empty %}
+                        <img src="{{ asset('uploads/users/avatar.jpg' ) }}" class="img-circle" alt="Article " >
+
+                    {%else%}
+                        <img src="{{ asset('uploads/articles/' ~ realisaton.photo) }}" class="img-circle" alt="Article Image" >
+                    {%endif%}
+                    {{ form_widget(form.photo)}}
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+
+                <input type="submit" class="btn btn-primary"></input>
+            </div>
+            {{ form_end(form) }}
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

@@ -1,0 +1,106 @@
+{% extends 'template.html.twig' %}
+{% block headTile %}
+
+    <ol class="breadcrumb">
+
+        <li>
+            <a type="button" class="btn btn-block btn-success" data-toggle="modal" data-target="#modal-add-realisations">
+                Ajouter realisation
+            </a>
+            {{ render(controller( 'App\\Controller\\RealisationsController::addRealisations' )) }}
+        </li>
+
+
+    </ol>
+{% endblock %}
+{% block body %}
+
+    {% for realisation in realisations%}
+        <div class="attachment-block clearfix">
+            {%if realisation.photo is empty %}
+                <img src="{{ asset('uploads/articles/avatar-article.png' ) }}" class="attachment-img" alt="User " >
+
+            {%else%}
+                <img src="{{ asset('uploads/articles/' ~ realisation.photo) }}" class="attachment-img" alt="User Image" >
+            {%endif%}
+
+            <div class="attachment-pushed">
+                <h4 class="attachment-heading"><a href="#">{{realisation.title}}</a></h4>
+
+                <div class="attachment-text">
+                    {{realisation.content}} <a href="#">suite ...</a>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        {%if realisation.publicated == 1%}
+                            <input type="checkbox" onchange='handleChange(this,{{realisation.id}} );' checked> publié
+                        {%else%}
+                            <input type="checkbox" onchange='handleChange(this,{{realisation.id}} );' > publié
+                        {%endif%}
+
+                    </label>
+                </div>
+
+
+                <td>
+                    <a href="#" data-href="{{path('delete-realisations',{'id':realisation.id})}}"type="button" class="btn btn-block btn-danger btn-xs" data-toggle="modal" data-target="#confirm-delete-{{realisation.id}}">Supprimer</a>
+                    <a  href="#"data-toggle="modal" data-target="#modal-realisations-edit-{{realisation.id}}" type="button" class="btn btn-block btn-info btn-xs">Modifier</a>
+                    {{ render(controller( 'App\\Controller\\RealisationsController::editRealisations',{'id':realisation.id} )) }}
+                </td>
+
+                <!-- /.attachment-text -->
+            </div>
+            <!-- /.attachment-pushed -->
+
+        </div>
+
+        <hr style="border-top: 1px solid #e0cacade;">
+        
+         <div class="modal fade" id="confirm-delete-{{realisation.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                Confirmation de suppression
+                            </div>
+                            <div class="modal-body">
+                                Voulez-vous vraiment supprimer cet actualité
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <a  href="{{path('delete-realisations',{'id':realisation.id})}}" class="btn btn-danger btn-ok">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    {%endfor%}
+
+    <script>
+
+        function handleChange(checkbox, id) {
+
+            if (checkbox.checked == true) {
+                $.ajax({
+                    type: "POST",
+                    url: Routing.generate('publie-realisations', {'id': id}),
+                    data: JSON.stringify({id: id}),
+                    dataType: "json",
+                    success: function (data) {
+                        // Execute some specific data for route1
+                    }
+                });
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: Routing.generate('depublie-realisations', {'id': id}),
+                    data: JSON.stringify({id: id}),
+                    dataType: "json",
+                    success: function (data) {
+                    }
+                });
+            }
+        };
+       
+    </script>
+
+
+{% endblock %}

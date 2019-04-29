@@ -48,7 +48,7 @@
                         <img src="{{ asset('uploads/articles/avatar-article.png' ) }}" class="attachment-img" alt="reclamation " >
 
                     {%else%}
-                        <img src="{{ asset('uploads/articles/' ~ reclamation.photo) }}" class="attachment-img" alt="reclamation Image" >
+                        <img src="{{ asset('uploads/articles/' ~ reclamation.photo) }}" class="attachment-img" alt="reclamation Image"style="width: 225px;height:225px;" >
                     {%endif%}
                 </td>
 
@@ -59,8 +59,9 @@
                 <td>
 
                     <a href="#" data-toggle="modal" data-target="#modal-reclamation-edit-{{reclamation.id}}" class="btn btn-social-icon btn-dropbox" ><i class="fa fa-edit"></i></a>
-
+                    <a href="#" data-toggle="modal" data-target="#modal-reclamation-view-{{reclamation.id}}" class="btn btn-social-icon btn-dropbox" ><i class="fa fa-eye"></i></a>
                     {{ render(controller( 'App\\Controller\\ReclamationController::editReclamation',{'id':reclamation.id} )) }}
+                     {{ render(controller( 'App\\Controller\\ReclamationController::viewReclamation',{'id':reclamation.id} )) }}
                 </td>
                 </tr>
             {%endfor%}

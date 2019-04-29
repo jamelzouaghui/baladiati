@@ -45,7 +45,7 @@ class SessionIdHandler
                $request = $event->getRequest();
                $session = $request->getSession();
                $session->invalidate();
-               $response = new RedirectResponse($this->router->generate('login'));
+               $response = new RedirectResponse($this->router->generate('app_login'));
                $response->headers->clearCookie('client_id');
                $response->headers->clearCookie('accesss_token');
                $response->headers->clearCookie('refresh_token');

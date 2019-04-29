@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class ArticleType extends AbstractType {
 
@@ -16,8 +17,13 @@ class ArticleType extends AbstractType {
         $builder
                 ->add('title', TextType::class, array('label' => 'Titre', 'attr' => array('class' => 'form-control')))
                 ->add('content', TextType::class, array('label' => 'contenu', 'attr' => array('class' => 'form-control')))
-                ->add('photo', FileType::class, array('label' => 'Photo','required'=>false, 'attr' => array('class' => 'form-control')))
-              
+                ->add('content', CKEditorType::class, array(
+                    'config' => array(
+                        'uiColor' => '#999999',
+                    ),
+                ))
+                ->add('photo', FileType::class, array('label' => 'Photo', 'required' => false, 'attr' => array('class' => 'form-control')))
+
 
         ;
     }

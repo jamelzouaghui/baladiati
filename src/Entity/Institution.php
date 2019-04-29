@@ -5,14 +5,14 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\DateTime;
 use JMS\Serializer\Annotation as JMS;
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\InstitutionRepository")
  *  @JMS\ExclusionPolicy("all")
  */
-class Institution
-{
+class Institution {
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -26,8 +26,11 @@ class Institution
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", nullable= false)
+     * 
+ 
      */
+    
     private $phone;
 
     /**
@@ -40,59 +43,50 @@ class Institution
      */
     private $updatedAt;
 
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
-    public function getTitle()
-    {
+    public function getTitle() {
         return $this->title;
     }
 
-    public function setTitle( $title)
-    {
+    public function setTitle($title) {
         $this->title = $title;
 
         return $this;
     }
 
-    public function getPhone()
-    {
+    public function getPhone() {
         return $this->phone;
     }
 
-    public function setPhone( $phone)
-    {
+    public function setPhone($phone) {
         $this->phone = $phone;
 
         return $this;
     }
 
-    public function getCreatedAt()
-    {
+    public function getCreatedAt() {
         return $this->createdAt;
     }
 
-    public function setCreatedAt( $createdAt)
-    {
+    public function setCreatedAt($createdAt) {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getUpdatedAt()
-    {
+    public function getUpdatedAt() {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt( $updatedAt)
-    {
+    public function setUpdatedAt($updatedAt) {
         $this->updatedAt = $updatedAt;
 
         return $this;
     }
-    
+
     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
@@ -104,4 +98,5 @@ class Institution
             $this->setCreatedAt($dateTimeNow);
         }
     }
+
 }

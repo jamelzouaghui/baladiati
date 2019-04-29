@@ -27,7 +27,7 @@
         {% for pres in presentation %}
             <div class="callout callout-info">
                 <h4> {{pres.title}}</h4>
-                <p> {{pres.content}}</p>
+                <p> {{pres.content|raw}}</p>
             </div>
             <a href="#" data-toggle="modal" data-target="#modal-presentations-edit-{{pres.id}}" type="button" class="btn btn-block btn-info btn-xs">Modifier</a>
             {{ render(controller( 'App\\Controller\\DashboardController::editPresentation',{'id':pres.id} )) }}

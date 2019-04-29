@@ -36,7 +36,8 @@
                         <img src="{{ asset('uploads/users/avatar.jpg' ) }}" class="img-circle" alt="Article " >
 
                     {%else%}
-                        <img src="{{ asset('uploads/articles/' ~ realisaton.photo) }}" class="img-circle" alt="Article Image" >
+                        <img src="{{ asset('uploads/articles/' ~ realisaton.photo) }}" class="img-circle" style="width:100px;
+                             height:100px;"alt="Article Image" >
                     {%endif%}
                     {{ form_widget(form.photo)}}
 

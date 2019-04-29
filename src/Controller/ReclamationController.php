@@ -107,20 +107,31 @@ class ReclamationController extends AbstractController {
     }
 
     /**
+     * @Route("/{id}/viewReclamation" , name="view-reclamation")
+     * 
+     */
+    public function viewReclamation(Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
+
+        $reclamation = $em->getRepository('App\Entity\AbstractGMap')->find($id);
+
+
+        return $this->render('reclamation/view-reclamation.html.twig', [
+                    'id' => $id,
+                    'reclamation' => $reclamation
+                        ]
+        );
+    }
+
+    /**
      * Get a reclamation   
      * @return 
      */
-    public function getReclamationNumber( EntityManagerInterface $em) {
-         $em = $this->getDoctrine()->getManager();
-         $reclamationsUnread = $em->getRepository(AbstractGMap::class)->findReclamationsUnread();
-dump($reclamationsUnread);
-die();
-        
-        
-                
-                
-               
-       
+    public function getReclamationNumber(EntityManagerInterface $em) {
+        $em = $this->getDoctrine()->getManager();
+        $reclamationsUnread = $em->getRepository(AbstractGMap::class)->findReclamationsUnread();
+        dump($reclamationsUnread);
+        die();
     }
 
 }

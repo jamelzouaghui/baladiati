@@ -39,7 +39,7 @@ class AgendaController extends AbstractController {
 
             $em->persist($agenda);
             $em->flush();
-              $this->addFlash('success', 'évenement créer! succées!');
+            $this->addFlash('success', 'évenement créer! succées!');
             return $this->redirectToRoute('agenda');
         }
 

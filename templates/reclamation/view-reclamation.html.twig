@@ -1,0 +1,66 @@
+<style>
+    .form-inline .form-group {
+        display: block; 
+
+    }
+    .form-inline .form-control {
+        display: block; 
+        width: 100%; 
+
+    }
+</style>
+
+<div class="modal fade" id="modal-reclamation-view-{{id}}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Voir Réclamation</h4>
+            </div>
+            <div class="modal-body">
+
+
+
+
+                <div class="media">
+                    <div class="media-left">
+                        <a href="#" class="ad-click-event">
+                          
+                            {%if reclamation.photo is empty %}
+                                <img src="{{ asset('uploads/articles/avatar-article.png' ) }}" class="media-object" style="width: 150px;height: auto;border-radius: 4px;box-shadow: 0 1px 3px rgba(0,0,0,.15);" >
+
+                            {%else%}
+                                <img src="{{ asset('uploads/articles/' ~ reclamation.photo) }}" class="media-object" style="width: 150px;height: auto;border-radius: 4px;box-shadow: 0 1px 3px rgba(0,0,0,.15);" >
+                            {%endif%}
+
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <div class="clearfix">
+                            <p class="pull-right">
+
+                            </p>
+
+                            <h4 style="margin-top: 0"> {{reclamation.name}}</h4>
+
+                            <p> {{reclamation.commentaire}}</p>
+                            <p style="margin-bottom: 0">
+                                <i class="fa fa-shopping-cart margin-r5"></i>  {{reclamation.createdAt |date('d/m/Y')}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+
+
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

@@ -267,6 +267,15 @@
                             </li>
 
                         {% endif %}
+                         {% if is_granted('ROLE_ADMIN') %}
+                            <li>
+                                <a href="{{path('users')}}">
+                                    <i class="fa  fa-book"></i> <span>Créer Utilisateur</span>
+
+                                </a>
+                            </li>
+
+                        {% endif %}
 
 
                     </ul>

@@ -73,6 +73,49 @@ class UserController extends AbstractController {
                         ]
         );
     }
+    /**
+     * @Route("/addusernormal" , name="add-user-normal")
+     * 
+     */
+    public function addUserNormal(Request $request, UserPasswordEncoderInterface $encoder, TokenGeneratorInterface $tokenGenerator) {
+        $em = $this->getDoctrine()->getManager();
+        $user = new User();
+        $form = $this->createForm(UserType::class, $user);
+//test pour git init workflow
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form->get('photo')->getData();
+
+            $email = $form->get('email')->getData();
+            $password = $form->get('password')->getData();
+            $emailUser = $em->getRepository('App\Entity\User')->findByEmail($email);
+            if (!empty($emailUser)) {
+                $form->get('email')->addError(new FormError("Cette adresse email est déjà associée à un compte "));
+                return $this->render('user/add-user.html.twig', [
+                            'form' => $form->createView()
+                                ]
+                );
+            }
+            $encoded = $encoder->encodePassword($user, $password);
+            $user->setPassword($encoded);
+			 $user->setPasswordecryp($password);
+            $user->setRoles(['ROLE_USER']);
+//            // création du token
+//            $user->setToken($tokenGenerator->generateToken());
+//            // enregistrement de la date de création du token
+//            $user->setPasswordRequestedAt(new \Datetime());
+            $em->persist($user);
+            $em->flush();
+            $this->addFlash('success', 'député Créer! succées!');
+            return $this->redirectToRoute('users');
+        }
+
+        return $this->render('user/add-user.html.twig', [
+                    'form' => $form->createView()
+                        ]
+        );
+    }
 
     /**
      * @Route("/{id}/update-user" , name="edit-user")

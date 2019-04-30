@@ -11,6 +11,14 @@
                 {{ render(controller( 'App\\Controller\\UserController::addUser' )) }}
             </li>
         {% endif %}
+         {% if is_granted('ROLE_ADMIN') %}
+            <li>
+                <a type="button" class="btn btn-block btn-success btn-sm" data-toggle="modal" data-target="#modal-user-add">
+                    Ajouter Utilisateur
+                </a>
+                {{ render(controller( 'App\\Controller\\UserController::addUserNormal' )) }}
+            </li>
+        {% endif %}
     </ol>
 {% endblock %}
 {% block body %}
@@ -28,53 +36,60 @@
                 </tr>
             </thead>
             <tbody>
-                
-                {% for user in users %}
-                    <tr>
-                        <td> 
+                {% if is_granted('ROLE_ADMINISTRATOR') %}
+                    {% for user in users %}
+                        
+                        <tr>
+                            <td> 
 
-                            <div class="pull-left image">
-                                {%if user.photo is empty %}
-                                    <img src="{{ asset('uploads/users/avatar.jpg' ) }}" class="img-circle" alt="User " style="width: 50px;">
+                                <div class="pull-left image">
+                                    {%if user.photo is empty %}
+                                        <img src="{{ asset('uploads/users/avatar.jpg' ) }}" class="img-circle" alt="User " style="width: 50px;">
 
-                                {%else%}
-                                    <img src="{{ asset('uploads/users/' ~ user.photo) }}" class="img-circle" alt="User Image" style="width: 50px;">
-                                {%endif%}
+                                    {%else%}
+                                        <img src="{{ asset('uploads/users/' ~ user.photo) }}" class="img-circle" alt="User Image" style="width: 50px;">
+                                    {%endif%}
 
-                            </div>
+                                </div>
 
-                        </td>
-                        <td>{{user.firstname}}{{user.firstname}}</td>
-                        <td>{{user.email}}</td>
-                        <th>{{user.profession}}</th>
-                        <th>{{user.cv}}</th>
-                        <td>{{user.createdAt |date('d/m/Y')}}</td>
-                        <td>
-                            <a href="#" data-toggle="modal" data-target="#modal-user-edit-{{user.id}}" class="btn btn-social-icon btn-dropbox" ><i class="fa fa-edit"></i></a>
-                                {%if app.user.id != user.id    %}
-                                <a href="#" data-href="{{path('delete-user',{'id':user.id})}}" class="btn btn-social-icon btn-danger" data-toggle="modal" data-target="#confirm-delete-{{user.id}}"><i class="fa fa-times"></i></a>
-                            {% endif %}
-                        </td>
-                    </tr>
-                    {{ render(controller( 'App\\Controller\\UserController::editUser',{'id':user.id,'token': user.token } )) }}
+                            </td>
+                            <td>{{user.firstname}}{{user.firstname}}</td>
+                            <td>{{user.email}}</td>
+                            <th>{{user.profession}}</th>
+                            <th>{{user.cv}}</th>
+                            <td>{{user.createdAt |date('d/m/Y')}}</td>
+                            <td>
+                                <a href="#" data-toggle="modal" data-target="#modal-user-edit-{{user.id}}" class="btn btn-social-icon btn-dropbox" ><i class="fa fa-edit"></i></a>
+                                    {%if app.user.id != user.id    %}
+                                    <a href="#" data-href="{{path('delete-user',{'id':user.id})}}" class="btn btn-social-icon btn-danger" data-toggle="modal" data-target="#confirm-delete-{{user.id}}"><i class="fa fa-times"></i></a>
+                                    {% endif %}
+                            </td>
+                        </tr>
+                        {{ render(controller( 'App\\Controller\\UserController::editUser',{'id':user.id,'token': user.token } )) }}
 
-                <div class="modal fade" id="confirm-delete-{{user.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                Confirmation de suppression
-                            </div>
-                            <div class="modal-body">
-                                Voulez-vous vraiment supprimer ce contact
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <a  href="{{path('delete-user',{'id':user.id})}}" class="btn btn-danger btn-ok">Delete</a>
+
+
+                    <div class="modal fade" id="confirm-delete-{{user.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    Confirmation de suppression
+                                </div>
+                                <div class="modal-body">
+                                    Voulez-vous vraiment supprimer ce contact
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                    <a  href="{{path('delete-user',{'id':user.id})}}" class="btn btn-danger btn-ok">Delete</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {%endfor%}
+                {%endfor%}
+            {%else%}
+                <p>no</p>
+            {%endif%}
+
 
             </tbody>
 

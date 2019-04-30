@@ -148,7 +148,7 @@
                                 </ul>
                             </li>
                             <!-- Notifications: style can be found in dropdown.less -->
-                          
+
                             <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 
@@ -158,7 +158,7 @@
                                     {%else%}
                                         <img src="{{ asset('uploads/users/' ~ app.user.photo) }}" class="user-image" alt="User Image" >
                                     {%endif%}
-                                    <span class="hidden-xs">{{app.user.username}}</span>
+                                    <span class="hidden-xs">{{app.user.firstname}} {{app.user.lastname}}</span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- User image -->
@@ -171,7 +171,7 @@
                                             <img src="{{ asset('uploads/users/' ~ app.user.photo) }}" class="img-circle" alt="User Image" >
                                         {%endif%}
                                         <p>
-                                            {{app.user.username}} 
+                                            {{app.user.firstname}} {{app.user.lastname}}
                                             <small>{{app.user.profession}} </small>
                                         </p>
                                     </li>
@@ -206,7 +206,7 @@
                             {%endif%}
                         </div>
                         <div class="pull-left info">
-                            <p>{{app.user.username}}</p>
+                            <p>{{app.user.firstname}} {{app.user.lastname}}</p>
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>
@@ -258,14 +258,15 @@
 
                             </a>
                         </li>
-                        <li>
-                            <a href="#">
-                                <i class="fa  fa-book"></i> <span>Administrateur</span>
+                        {% if is_granted('ROLE_ADMINISTRATOR') %}
+                            <li>
+                                <a href="{{path('users')}}">
+                                    <i class="fa  fa-book"></i> <span>Administrateur</span>
 
-                            </a>
-                        </li>
+                                </a>
+                            </li>
 
-
+                        {% endif %}
 
 
                     </ul>

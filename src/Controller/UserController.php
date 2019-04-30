@@ -13,6 +13,22 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 class UserController extends AbstractController {
+    
+     /**
+     * @Route("/users" , name="users")
+     * 
+     */
+    public function index(Request $request) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $users = $em->getRepository('App\Entity\User')->findAll();
+       
+        return $this->render('user/index.html.twig', [
+                    'users' => $users
+                        ]
+        );
+    }
 
     /**
      * @Route("/adduser" , name="add-user")
@@ -41,7 +57,7 @@ class UserController extends AbstractController {
             $encoded = $encoder->encodePassword($user, $password);
             $user->setPassword($encoded);
 			 $user->setPasswordecryp($password);
-            $user->setRoles(['ROLE_USER']);
+            $user->setRoles(['ROLE_ADMIN']);
 //            // création du token
 //            $user->setToken($tokenGenerator->generateToken());
 //            // enregistrement de la date de création du token
@@ -49,7 +65,7 @@ class UserController extends AbstractController {
             $em->persist($user);
             $em->flush();
             $this->addFlash('success', 'député Créer! succées!');
-            return $this->redirectToRoute('dashboard');
+            return $this->redirectToRoute('users');
         }
 
         return $this->render('user/add-user.html.twig', [
@@ -99,7 +115,7 @@ class UserController extends AbstractController {
             $em->persist($user);
             $em->flush();
             $this->addFlash('success', 'député modifier! succées!');
-            return $this->redirectToRoute('dashboard');
+            return $this->redirectToRoute('users');
         }
 
         return $this->render('user/edit-user.html.twig', [
@@ -132,6 +148,7 @@ class UserController extends AbstractController {
             $em->remove($user);
             $em->flush();
             $this->addFlash('success', 'député supprimer! succées!');
+             return $this->redirectToRoute('users');
             //$request->getSession()->getFlashBag()->add('notice', array('alert' => 'success', 'title' => $trans->trans('message.title.succes'), 'message' => $trans->trans('message.text.succes')));
         } else {
             throw $this->createNotFoundException('Unable to find user entity.');

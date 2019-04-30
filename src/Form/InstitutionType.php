@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class InstitutionType extends AbstractType
 {
@@ -15,7 +16,7 @@ class InstitutionType extends AbstractType
     {
         $builder
              ->add('title', TextType::class, array('label' => 'Titre', 'attr' => array('class' => 'form-control')))
-            ->add('phone', TextType ::class, array('label' => 'Numero Teléphone', 'attr' => array('type'=>'number','class' => 'form-control')))
+            ->add('phone', IntegerType::class, array('label' => 'Numero Teléphone','attr' => array('type'=>'number','name'=>'phone','class' => 'form-control')))
         ;
     }
 

@@ -3,14 +3,14 @@
 
     <ol class="breadcrumb">
 
-
-        <li>
-            <a type="button" class="btn btn-block btn-success btn-sm" data-toggle="modal" data-target="#modal-user-add">
-                Ajouter Députés
-            </a>
-            {{ render(controller( 'App\\Controller\\UserController::addUser' )) }}
-        </li>
-
+        {% if is_granted('ROLE_ADMINISTRATOR') %}
+            <li>
+                <a type="button" class="btn btn-block btn-success btn-sm" data-toggle="modal" data-target="#modal-user-add">
+                    Ajouter User
+                </a>
+                {{ render(controller( 'App\\Controller\\UserController::addUser' )) }}
+            </li>
+        {% endif %}
     </ol>
 {% endblock %}
 {% block body %}
@@ -28,6 +28,7 @@
                 </tr>
             </thead>
             <tbody>
+                
                 {% for user in users %}
                     <tr>
                         <td> 
@@ -49,10 +50,10 @@
                         <th>{{user.cv}}</th>
                         <td>{{user.createdAt |date('d/m/Y')}}</td>
                         <td>
-                            
-                                <a href="#" data-toggle="modal" data-target="#modal-user-edit-{{user.id}}" class="btn btn-social-icon btn-dropbox" ><i class="fa fa-edit"></i></a>
+                            <a href="#" data-toggle="modal" data-target="#modal-user-edit-{{user.id}}" class="btn btn-social-icon btn-dropbox" ><i class="fa fa-edit"></i></a>
+                                {%if app.user.id != user.id    %}
                                 <a href="#" data-href="{{path('delete-user',{'id':user.id})}}" class="btn btn-social-icon btn-danger" data-toggle="modal" data-target="#confirm-delete-{{user.id}}"><i class="fa fa-times"></i></a>
-                                
+                            {% endif %}
                         </td>
                     </tr>
                     {{ render(controller( 'App\\Controller\\UserController::editUser',{'id':user.id,'token': user.token } )) }}

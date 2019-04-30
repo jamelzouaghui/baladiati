@@ -45,7 +45,7 @@
                 <div class="form-group">
                     <label >Photo</label>
                     {%if user.photo is empty %}
-                        <img src="{{ asset('uploads/users/avatar.jpg' ) }}" class="img-circle" style="height:100px;width:100%;" alt="User " >
+                        <img src="{{ asset('uploads/users/avatar.jpg' ) }}" class="img-circle" style="height:100px;width:100px;" alt="User " >
 
                     {%else%}
                         <img src="{{ asset('uploads/users/' ~ user.photo) }}" class="img-circle" alt="User Image" >

@@ -4,10 +4,10 @@
     <ol class="breadcrumb">
         <li>
             {#<a href="{{path('add-institution')}}" type="button" class="btn btn-block btn-success"> Ajouter Institution</a>#}
-             <a type="button" class="btn btn-block btn-success" data-toggle="modal" data-target="#modal-institution-add">
+            <a type="button" class="btn btn-block btn-success" data-toggle="modal" data-target="#modal-institution-add">
                 Ajouter Institution
             </a>
-             {{ render(controller( 'App\\Controller\\InstitutionController::addInstitution' )) }}
+            {{ render(controller( 'App\\Controller\\InstitutionController::addInstitution' )) }}
         </li>
 
     </ol>
@@ -17,7 +17,7 @@
         <table id="example2" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer cell-border">
             <thead>
                 <tr>
-                    
+
                     <th>Titre</th>
                     <th>Numéro</th>
                     <th>Action</th>
@@ -26,16 +26,16 @@
             <tbody>
                 {% for institution in institutions %}
                     <tr>
-                       
+
                         <td>{{institution.title}}</td>
                         <td>{{institution.phone}}</td>
-                      
+
                         <td>
-                         
-                            
+
+
                             <a href="#" data-toggle="modal" data-target="#modal-institution-edit-{{institution.id}}" class="btn btn-social-icon btn-dropbox" ><i class="fa fa-edit"></i></a>
                             <a href="{{path('delete-institution',{'id':institution.id})}}" class="btn btn-social-icon btn-danger"><i class="fa fa-times"></i></a>
-                               {{ render(controller( 'App\\Controller\\InstitutionController::editInstitution',{'id':institution.id} )) }}
+                                {{ render(controller( 'App\\Controller\\InstitutionController::editInstitution',{'id':institution.id} )) }}
                         </td>
                     </tr>
                 {%endfor%}
@@ -43,4 +43,7 @@
 
         </table>
     </div>
+
+
+
 {% endblock %}

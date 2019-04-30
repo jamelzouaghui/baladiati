@@ -13,8 +13,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 class UserController extends AbstractController {
-    
-     /**
+
+    /**
      * @Route("/users" , name="users")
      * 
      */
@@ -22,10 +22,22 @@ class UserController extends AbstractController {
 
         $em = $this->getDoctrine()->getManager();
 
-        $users = $em->getRepository('App\Entity\User')->findAll();
-       
+        //$users = $em->getRepository('App\Entity\User')->findAll();
+        $queryadmin = $this->getDoctrine()->getEntityManager()
+                        ->createQuery(
+                                'SELECT u FROM App\Entity\User u WHERE u.roles LIKE :role'
+                        )->setParameter('role', '%"ROLE_ADMIN"%');
+        $users = $queryadmin->getResult();
+        $query = $this->getDoctrine()->getEntityManager()
+                        ->createQuery(
+                                'SELECT u FROM App\Entity\User u WHERE u.roles LIKE :role'
+                        )->setParameter('role', '%"ROLE_USER"%');
+
+        $users2 = $query->getResult();
+
         return $this->render('user/index.html.twig', [
-                    'users' => $users
+                    'users' => $users,
+                    'users2' => $users2
                         ]
         );
     }
@@ -56,7 +68,7 @@ class UserController extends AbstractController {
             }
             $encoded = $encoder->encodePassword($user, $password);
             $user->setPassword($encoded);
-			 $user->setPasswordecryp($password);
+            $user->setPasswordecryp($password);
             $user->setRoles(['ROLE_ADMIN']);
 //            // création du token
 //            $user->setToken($tokenGenerator->generateToken());
@@ -73,6 +85,7 @@ class UserController extends AbstractController {
                         ]
         );
     }
+
     /**
      * @Route("/addusernormal" , name="add-user-normal")
      * 
@@ -99,19 +112,20 @@ class UserController extends AbstractController {
             }
             $encoded = $encoder->encodePassword($user, $password);
             $user->setPassword($encoded);
-			 $user->setPasswordecryp($password);
+            $user->setPasswordecryp($password);
             $user->setRoles(['ROLE_USER']);
 //            // création du token
 //            $user->setToken($tokenGenerator->generateToken());
 //            // enregistrement de la date de création du token
 //            $user->setPasswordRequestedAt(new \Datetime());
             $em->persist($user);
+
             $em->flush();
             $this->addFlash('success', 'député Créer! succées!');
             return $this->redirectToRoute('users');
         }
 
-        return $this->render('user/add-user.html.twig', [
+        return $this->render('user/add-user-normal.html.twig', [
                     'form' => $form->createView()
                         ]
         );
@@ -122,7 +136,7 @@ class UserController extends AbstractController {
      * 
      */
     public function editUser(Request $request, UserPasswordEncoderInterface $encoder, $id) {
-    
+
         $em = $this->getDoctrine()->getManager();
 
         $user = $em->getRepository('App\Entity\User')->find($id);
@@ -186,23 +200,22 @@ class UserController extends AbstractController {
         $em = $this->getDoctrine()->getManager();
 
         $user = $em->getRepository('App\Entity\User')->find($id);
- 
+
         if ($user) {
             $em->remove($user);
             $em->flush();
             $this->addFlash('success', 'député supprimer! succées!');
-             return $this->redirectToRoute('users');
+            return $this->redirectToRoute('users');
             //$request->getSession()->getFlashBag()->add('notice', array('alert' => 'success', 'title' => $trans->trans('message.title.succes'), 'message' => $trans->trans('message.text.succes')));
         } else {
             throw $this->createNotFoundException('Unable to find user entity.');
         }
-         $users = $em->getRepository('App\Entity\User')->findAll();
- 
+        $users = $em->getRepository('App\Entity\User')->findAll();
+
         return $this->render('dashboard/index.html.twig', [
-           'users'=> $users
+                    'users' => $users
                         ]
         );
-
     }
 
 }

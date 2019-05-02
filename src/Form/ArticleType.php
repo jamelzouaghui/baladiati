@@ -16,13 +16,12 @@ class ArticleType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
                 ->add('title', TextType::class, array('label' => 'Titre', 'attr' => array('class' => 'form-control')))
-                ->add('content', TextType::class, array('label' => 'contenu', 'attr' => array('class' => 'form-control')))
                 ->add('content', CKEditorType::class, array(
                     'config' => array(
                         'uiColor' => '#999999',
                     ),
                 ))
-                ->add('photo', FileType::class, array('label' => 'Photo', 'required' => false, 'attr' => array('class' => 'form-control')))
+                ->add('photo', FileType::class, array('label' => 'Photo', 'required' => false, 'attr' => array('class' => 'form-control','id' => 'add-file')))
 
 
         ;

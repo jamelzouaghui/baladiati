@@ -28,7 +28,11 @@
                 <h4 class="attachment-heading"><a href="#">{{article.title}}</a></h4>
 
                 <div class="attachment-text">
-                    {{article.content |raw}} <a href="#">suite ...</a>
+                    {{article.content |raw}} 
+                    
+                    
+                    
+                    <i class="fa fa-calendar" aria-hidden="true"> {{article.createdAt|date('d/m/Y') }} </i> 
                 </div>
                 <div class="checkbox">
                     <label>
@@ -66,7 +70,7 @@
                                 Voulez-vous vraiment supprimer cet actualité
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
                                 <a  href="{{path('delete-article',{'id':article.id})}}" class="btn btn-danger btn-ok">Delete</a>
                             </div>
                         </div>

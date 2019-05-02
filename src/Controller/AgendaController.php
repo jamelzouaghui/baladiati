@@ -38,6 +38,8 @@ class AgendaController extends AbstractController {
         if ($form->isSubmitted() && $form->isValid()) {
 
             $em->persist($agenda);
+            dump($agenda);
+            die();
             $em->flush();
             $this->addFlash('success', 'évenement créer! succées!');
             return $this->redirectToRoute('agenda');

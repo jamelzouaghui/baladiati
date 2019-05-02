@@ -1,16 +1,18 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity;;
 
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints\DateTime;
 use JMS\Serializer\Annotation as JMS;
+
 
 /**
  * @ORM\Table(name="article")
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
  * @JMS\ExclusionPolicy("all")
+ * @ORM\HasLifecycleCallbacks
+ * @ORM\MappedSuperclass
  */
 class Article {
 
@@ -116,15 +118,15 @@ class Article {
         return $this;
     }
 
-    /**
+     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
     public function updatedTimestamps() {
-        $dateTimeNow = new DateTime('now');
-        $this->setUpdatedAt($dateTimeNow);
-        if ($this->getCreatedAt() === null) {
-            $this->setCreatedAt($dateTimeNow);
+        $this->setUpdatedAt(new \DateTime('now'));
+
+        if ($this->getCreatedAt() == null) {
+            $this->setCreatedAt(new \DateTime('now'));
         }
     }
 

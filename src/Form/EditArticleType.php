@@ -29,19 +29,7 @@ class EditArticleType extends AbstractType {
         ;
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options) {
-
-        $entity = $form->getData();
-        if ($entity) {
-            if ($entity->getPhoto() === NULL) {
-                $path = null;
-            } else {
-                $path = '/uploads/articles/' . $entity->getPhoto();
-            }
-           
-             $view->vars['file_view'] = (null === $entity->getPhoto()) ? null : '/uploads/articles/' . $entity->getPhoto();
-        }
-    }
+  
 
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults([

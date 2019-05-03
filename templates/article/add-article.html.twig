@@ -8,32 +8,47 @@
                 <h4 class="modal-title">Ajouter un Article</h4>
             </div>
             <div class="modal-body">
-                {{ form_start(form, { 'action': path('add-article'), 'attr': { 'class': 'add-article' } }) }}
+                <form action="{{ path('add-article') }}" method="POST" enctype="multipart/form-data" id="modal-add-artilce">  
 
-                <div class="form-group">
-                    <label >Titre</label>
-                    {{ form_widget(form.title)}}
-                </div>
-                {#<div class="form-group">
-                    <label >Date de création</label>
-                    {{ form_widget(form.createdAt)}}
-                </div>#}
-                <div class="form-group">
-                    <label >Contenu</label>
-                    {{ form_widget(form.content)}}
-                </div>
-                <div class="form-group">
-                    <label >Photo</label>
-                    {{ form_widget(form.photo)}}
-                </div>
+                    <div class="form-group">
+                        <label >Titre</label>
+                        <input type="text" name="title" id="content" class="form-control" placeholder="Enter Titre">
+                    </div>
 
+                    <div class="form-group">
+                        <label >Contenu</label>
+                        <input type="text" name="content" id="content" class="form-control" placeholder="Enter Votre contenu">
+                    </div>
+                    <div class="form-group">
+                        <label >Photo</label>
+                        <div class="input-group control-group after-add-more">
+                            <input type="file" name="file_photo[]" id="file_photo" class="form-control" placeholder="Enter Name Here">
+
+                            <div class="input-group-btn"> 
+                                <button class="btn btn-success add-more" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+
+                        <input type="submit" class="btn btn-primary"></input>
+                    </div>
+                </form>
+                <div class="copy hide">
+                    <div class="control-group input-group" style="margin-top:10px">
+                        <input type="file" name="file_photo[]" id="file_photo" class="form-control" placeholder="Enter Name Here">
+
+                        <div class="input-group-btn"> 
+                            <button class="btn btn-danger remove" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="modal-footer">
-
-                <input type="submit" class="btn btn-primary"></input>
-            </div>
-            {{ form_end(form) }}
         </div>
+
+
         <!-- /.modal-content -->
     </div>
     <!-- /.modal-dialog -->

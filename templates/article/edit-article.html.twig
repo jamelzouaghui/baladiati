@@ -32,14 +32,14 @@
                     {{ form_widget(form.content|raw)}}
                 </div>
                 <div class="form-group">
-                    {%if article.photo is empty %}
+                    {#{%if article.photo is empty %}
                         <img src="{{ asset('uploads/users/avatar.jpg' ) }}" class="img-circle" alt="Article " style="width:100px;height:100px;" >
 
                     {%else%}
                         <img src="{{ asset('uploads/articles/' ~ article.photo) }}" class="img-circle" style="width:100px;height:100px;" alt="Article Image" >
                     {%endif%}
                     {{ form_widget(form.photo)}}
-
+#}
                 </div>
 
             </div>

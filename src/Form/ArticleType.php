@@ -21,7 +21,7 @@ class ArticleType extends AbstractType {
                         'uiColor' => '#999999',
                     ),
                 ))
-                ->add('photo', FileType::class, array('label' => 'Photo', 'required' => false, 'attr' => array('class' => 'form-control','id' => 'add-file')))
+               ->add('photos', FileType::class, array('mapped'=>false,'multiple'=>true,'label' => 'Photo', 'required' => false, 'attr' => array('multiple'=>'multiple','class' => 'form-control','id' => 'add-file')))
 
 
         ;

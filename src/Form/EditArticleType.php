@@ -23,7 +23,7 @@ class EditArticleType extends AbstractType {
                         'uiColor' => '#999999',
                     ),
                 ))
-                ->add('photo', FileType::class, array('data_class' => null,'required'=>false, 'label' => 'Photo', 'attr' => array('class' => 'form-control')))
+//                ->add('photo', FileType::class, array('data_class' => null,'required'=>false, 'label' => 'Photo', 'attr' => array('class' => 'form-control')))
 
 
         ;

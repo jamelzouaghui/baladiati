@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Entity;;
+namespace App\Entity;
+;
 
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
-
 
 /**
  * @ORM\Table(name="article")
@@ -23,11 +23,7 @@ class Article {
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", nullable=true)
-
-     */
-    private $photo;
+    
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -54,19 +50,13 @@ class Article {
      */
     private $publicated;
 
+    
+
     public function getId() {
         return $this->id;
     }
 
-    public function getPhoto() {
-        return $this->photo;
-    }
-
-    public function setPhoto($photo) {
-        $this->photo = $photo;
-
-        return $this;
-    }
+   
 
     public function getTitle() {
         return $this->title;
@@ -118,7 +108,7 @@ class Article {
         return $this;
     }
 
-     /**
+    /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */

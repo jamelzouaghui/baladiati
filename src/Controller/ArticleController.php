@@ -21,7 +21,7 @@ class ArticleController extends AbstractController {
 
         $em = $this->getDoctrine()->getManager();
         $articles = $em->getRepository(Article::class)->findAll();
-
+      
         return $this->render('article/index.html.twig', [
                     'articles' => $articles
                         ]
@@ -48,31 +48,23 @@ class ArticleController extends AbstractController {
             $article->setContent($content);
             $article->setPublicated(0);
             
-            $media = new Media();
+          
             
             $em->persist($article);
             if ($photosFile) {
                 foreach ($photosFile as $file) {
+                    $media = new Media();
                     $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
-
-                    try {
-                        $file->move(
-                                $this->getParameter('articles_directory'), $fileName
-                        );
-                    } catch (FileException $e) {
-                        
-                    }
-
+                    $file->move($this->getParameter('articles_directory'), $fileName);
                     $media->setName($fileName);
                     $media->setArticle($article);
                     $em->persist($media);
-                   $em->flush();
+                  
                 }
+               
                 
             }
-            dump($media);
-            dump($article);
-            die();
+           
             $em->flush();
             $this->addFlash('success', 'article ajouter! succées!');
             return $this->redirectToRoute('list-article');

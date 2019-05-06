@@ -4,13 +4,13 @@
     <ol class="breadcrumb">
         {%if nbpresentation == 0 %}
 
-           <li>
+            <li>
                 <a type="button" class="btn btn-block btn-success btn-sm" data-toggle="modal" data-target="#modal-presentation-add">
                     Créer une Presentation
                 </a>
-               
+
             </li>
-             {{ render(controller( 'App\\Controller\\DashboardController::addPresentation' )) }}
+            {{ render(controller( 'App\\Controller\\DashboardController::addPresentation' )) }}
         {%endif%}
         <li>
             <a type="button" class="btn btn-block btn-success btn-sm" data-toggle="modal" data-target="#modal-depute-add">
@@ -23,6 +23,12 @@
 
 {% endblock %}
 {% block body %}
+    <style>
+        .callout.callout-info{
+            background-color: #fff !important;
+            color:#000 !important;
+        }
+    </style>
     <div class="box-body">
         {% for pres in presentation %}
             <div class="callout callout-info">
@@ -62,7 +68,7 @@
                             </div>
 
                         </td>
-                        <td>{{depute.firstname}}{{depute.firstname}}</td>
+                        <td>{{depute.firstname}}    {{depute.lastname}}</td>
 
                         <th>{{depute.fonction}}</th>
                         <th>  

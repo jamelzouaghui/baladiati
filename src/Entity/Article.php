@@ -4,6 +4,8 @@ namespace App\Entity;
 ;
 
 use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 
@@ -50,7 +52,16 @@ class Article {
      */
     private $publicated;
 
+    /**
+     * One product has many features. This is the inverse side.
+     * @ORM\OneToMany(targetEntity="Media", mappedBy="article")
+     */
+    private $medias;
     
+
+    public function __construct() {
+        $this->medias = new ArrayCollection();
+    }
 
     public function getId() {
         return $this->id;
@@ -118,6 +129,37 @@ class Article {
         if ($this->getCreatedAt() == null) {
             $this->setCreatedAt(new \DateTime('now'));
         }
+    }
+
+    /**
+     * @return Collection|Media[]
+     */
+    public function getMedias(): Collection
+    {
+        return $this->medias;
+    }
+
+    public function addMedia(Media $media): self
+    {
+        if (!$this->medias->contains($media)) {
+            $this->medias[] = $media;
+            $media->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMedia(Media $media): self
+    {
+        if ($this->medias->contains($media)) {
+            $this->medias->removeElement($media);
+            // set the owning side to null (unless already changed)
+            if ($media->getArticle() === $this) {
+                $media->setArticle(null);
+            }
+        }
+
+        return $this;
     }
 
 }

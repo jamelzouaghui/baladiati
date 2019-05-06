@@ -14,7 +14,7 @@
          {% if is_granted('ROLE_ADMIN') %}
             <li>
                 <a type="button" class="btn btn-block btn-success btn-sm" data-toggle="modal" data-target="#modal-user-normal-add">
-                    Ajouter Utilisateur
+                    Créer Utilisateur
                 </a>
                 {{ render(controller( 'App\\Controller\\UserController::addUserNormal' )) }}
             </li>
@@ -53,7 +53,7 @@
                                 </div>
 
                             </td>
-                            <td>{{user.firstname}}{{user.firstname}}</td>
+                            <td>{{user.firstname}}{{user.lastname}}</td>
                             <td>{{user.email}}</td>
                             <th>{{user.profession}}</th>
                             <th>{{user.cv}}</th>
@@ -103,7 +103,7 @@
                                 </div>
 
                             </td>
-                            <td>{{user.firstname}}{{user.firstname}}</td>
+                            <td>{{user.firstname}}{{user.lastname}}</td>
                             <td>{{user.email}}</td>
                             <th>{{user.profession}}</th>
                             <th>{{user.cv}}</th>

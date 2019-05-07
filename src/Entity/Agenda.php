@@ -29,16 +29,23 @@ class Agenda
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $adress;
+    
+ 
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime")
      */
-    private $createdAt;
+    protected $createdAt;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime")
      */
-    private $updatedAt;
+    protected $updatedAt;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $dateCreation;
 
     public function getId()
     {
@@ -97,10 +104,22 @@ class Agenda
      * @ORM\PreUpdate
      */
     public function updatedTimestamps() {
-        $dateTimeNow = new DateTime('now');
+        $dateTimeNow = new \DateTime('now');
         $this->setUpdatedAt($dateTimeNow);
         if ($this->getCreatedAt() === null) {
             $this->setCreatedAt($dateTimeNow);
         }
+    }
+
+    public function getDateCreation()
+    {
+        return $this->dateCreation;
+    }
+
+    public function setDateCreation( $dateCreation)
+    {
+        $this->dateCreation = $dateCreation;
+
+        return $this;
     }
 }

@@ -6,14 +6,14 @@
             <a type="button" class="btn btn-block btn-success" data-toggle="modal" data-target="#modal-default">
                 Ajouter Evenement
             </a>
-           {{ render(controller( 'App\\Controller\\AgendaController::addEvent' )) }}
+            {{ render(controller( 'App\\Controller\\AgendaController::addEvent' )) }}
         </li>
 
     </ol>
 
 {% endblock %}
 {% block body %}
-     
+
     <div class="box-body">
         <table id="example2" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer cell-border">
             <thead>
@@ -29,21 +29,41 @@
                 {% for event in events %}
                     <tr>
                         <td>{{event.title}}</td>
-                        <td>{{event.createdAt |date('d/m/Y ')}}</td>
+                        <td>{{event.dateCreation |date('d/m/Y ')}}</td>
                         <th>{{event.adress}}</th>
 
                         <td>
                             <a href="#" data-toggle="modal" data-target="#modal-event-edit-{{event.id}}" class="btn btn-social-icon btn-dropbox" ><i class="fa fa-edit"></i></a>
-                            <a href="{{path('delete-event',{'id':event.id})}}" class="btn btn-social-icon btn-danger"><i class="fa fa-times"></i></a>
+                            <a href="#" data-href="{{path('delete-event',{'id':event.id})}}"type="button" class="btn btn-social-icon btn-danger" data-toggle="modal" data-target="#confirm-delete-{{event.id}}"><i class="fa fa-times"></i></a>
+                           
                                 {{ render(controller( 'App\\Controller\\AgendaController::editEvent',{'id':event.id} )) }}
                         </td>
                     </tr>
+                    
+                    
+    <hr style="border-top: 1px solid #e0cacade;">
+
+    <div class="modal fade" id="confirm-delete-{{event.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Confirmation de suppression
+                </div>
+                <div class="modal-body">
+                    Voulez-vous vraiment supprimer cet actualité
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
+                    <a  href="{{path('delete-event',{'id':event.id})}}" class="btn btn-danger btn-ok">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
                 {%endfor%}
             </tbody>
 
         </table>
     </div>
-
 
 
 {% endblock %}

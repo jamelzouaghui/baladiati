@@ -10,6 +10,8 @@ use JMS\Serializer\Annotation as JMS;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AgendaRepository")
  * @JMS\ExclusionPolicy("all")
+ * @ORM\HasLifecycleCallbacks
+ * @ORM\MappedSuperclass
  */
 class Agenda
 {

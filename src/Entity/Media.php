@@ -4,9 +4,13 @@ namespace App\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MediaRepository")
+ * @JMS\ExclusionPolicy("all")
+ * @ORM\HasLifecycleCallbacks
+ * @ORM\MappedSuperclass
  */
 class Media {
 

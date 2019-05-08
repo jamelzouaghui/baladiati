@@ -34,10 +34,34 @@
 
 
                             <a href="#" data-toggle="modal" data-target="#modal-institution-edit-{{institution.id}}" class="btn btn-social-icon btn-dropbox" ><i class="fa fa-edit"></i></a>
-                            <a href="{{path('delete-institution',{'id':institution.id})}}" class="btn btn-social-icon btn-danger"><i class="fa fa-times"></i></a>
-                                {{ render(controller( 'App\\Controller\\InstitutionController::editInstitution',{'id':institution.id} )) }}
+                          
+                             <a href="#" data-href="{{path('delete-institution',{'id':institution.id})}}"type="button" class="btn btn-social-icon btn-danger" data-toggle="modal" data-target="#confirm-delete-{{institution.id}}"><i class="fa fa-times"></i></a>
+                             
+                            
+                            {{ render(controller( 'App\\Controller\\InstitutionController::editInstitution',{'id':institution.id} )) }}
                         </td>
                     </tr>
+                    
+                    
+                    
+                      <hr style="border-top: 1px solid #e0cacade;">
+
+    <div class="modal fade" id="confirm-delete-{{institution.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Confirmation de suppression
+                </div>
+                <div class="modal-body">
+                    Voulez-vous vraiment supprimer cet actualité
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
+                    <a  href="{{path('delete-institution',{'id':institution.id})}}" class="btn btn-danger btn-ok">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
                 {%endfor%}
             </tbody>
 

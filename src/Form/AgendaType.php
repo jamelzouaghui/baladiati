@@ -15,7 +15,6 @@ class AgendaType extends AbstractType {
         $builder
                 ->add('title', TextType::class, array('label' => 'Titre', 'attr' => array('class' => 'form-control')))
                 ->add('adress', TextType::class, array('label' => 'Adresse', 'attr' => array('class' => 'form-control')))
-
                 ->add('dateCreation', DateType::class, array(
                     'label' => "date début",
                     'widget' => 'single_text',
@@ -24,8 +23,7 @@ class AgendaType extends AbstractType {
                     'required' => false,
                     'attr' => array('class' => 'js-datepicker form-control'),
                         )
-                );
-//        ;
+        );
     }
 
     public function configureOptions(OptionsResolver $resolver) {

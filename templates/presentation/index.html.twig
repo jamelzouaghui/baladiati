@@ -12,12 +12,12 @@
             </li>
             {{ render(controller( 'App\\Controller\\DashboardController::addPresentation' )) }}
         {%endif%}
-        <li>
-            <a type="button" class="btn btn-block btn-success btn-sm" data-toggle="modal" data-target="#modal-depute-add">
-                Ajouter Députés
-            </a>
-            {{ render(controller( 'App\\Controller\\DashboardController::addDepute' )) }}
-        </li>
+        {# <li>
+             <a type="button" class="btn btn-block btn-success btn-sm" data-toggle="modal" data-target="#modal-depute-add">
+                 Ajouter Députés
+             </a>
+             {{ render(controller( 'App\\Controller\\DashboardController::addDepute' )) }}
+         </li>#}
 
     </ol>
 
@@ -31,15 +31,22 @@
     </style>
     <div class="box-body">
         {% for pres in presentation %}
+            <a href="#" data-toggle="modal" data-target="#modal-presentations-edit-{{pres.id}}" type="button" class="btn btn-block btn-info btn-xs">Modifier</a>
+            <br><br>
             <div class="callout callout-info">
                 <h4> {{pres.title}}</h4>
                 <p> {{pres.content|raw}}</p>
             </div>
-            <a href="#" data-toggle="modal" data-target="#modal-presentations-edit-{{pres.id}}" type="button" class="btn btn-block btn-info btn-xs">Modifier</a>
+
             {{ render(controller( 'App\\Controller\\DashboardController::editPresentation',{'id':pres.id} )) }}
 
         {%endfor%}
-
+        <ol>
+            <a type="button" class="btn btn-block btn-success btn-sm" data-toggle="modal" data-target="#modal-depute-add" style="width:150px;float:right">
+                Ajouter Députés
+            </a>
+            {{ render(controller( 'App\\Controller\\DashboardController::addDepute' )) }}
+        </ol>
 
         <table id="example2" class=" table table-bordered table-hover dataTable" role="grid">
             <thead>
@@ -113,5 +120,24 @@
 
         </table>
     </div>
+    <script>
+        $(document).ready(function () {
+            jQuery.datetimepicker.setLocale('fr');
+            $('.input-group-addon').css('display', 'none');
+            $('#agenda_dateCreation').datetimepicker({
+                //inline: true,
+                format: 'd/m/Y H:i',
+                lang: 'fr',
+                minDate: '0', //yesterday is minimum date(for today use 0 or -1970/01/01)
+                // mask:true,
+                step: 60,
+                minTime: moment(new Date()).format('HH:mm'),
+                maxTime: '23:00',
 
+            });
+
+
+        });
+
+    </script>
 {% endblock %}

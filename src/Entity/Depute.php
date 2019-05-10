@@ -38,6 +38,7 @@ class Depute
     /**
      * @ORM\Column(type="string", length=255)
      */
+    
     private $photo;
 
     /**

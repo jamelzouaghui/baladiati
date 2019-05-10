@@ -19,7 +19,7 @@ $(function () {
      * Get access to plugins
      */
 
- 
+
     $('#users').DataTable({
         scrollX: true,
         'paging': true,
@@ -31,10 +31,10 @@ $(function () {
     })
 
 
-    $('.js-datepicker').datepicker({
-         language: 'fr',
-        format: 'dd/mm/yyyy'
-    });
+//    $('.js-datepicker').datetimepicker({
+//        language: 'fr',
+//        format: 'dd/mm/yyyy'
+//    });
 
 
 
@@ -61,3 +61,4 @@ $(function () {
 
 
 })
+

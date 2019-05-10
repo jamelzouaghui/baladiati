@@ -21,6 +21,7 @@
 
                     <th>Titre de l'évennement</th>
                     <th>Date</th>
+                    <th>Heure Evénement</th>
                     <th>Addresse</th>
                     <th>Action</th>
                 </tr>
@@ -29,41 +30,62 @@
                 {% for event in events %}
                     <tr>
                         <td>{{event.title}}</td>
-                        <td>{{event.dateCreation |date('d/m/Y ')}}</td>
+                        <td>{{event.dateCreation |date('d/m/Y')}}</td>
+                        <td>{{event.dateCreation |date('H:m ')}}</td>
                         <th>{{event.adress}}</th>
 
                         <td>
                             <a href="#" data-toggle="modal" data-target="#modal-event-edit-{{event.id}}" class="btn btn-social-icon btn-dropbox" ><i class="fa fa-edit"></i></a>
                             <a href="#" data-href="{{path('delete-event',{'id':event.id})}}"type="button" class="btn btn-social-icon btn-danger" data-toggle="modal" data-target="#confirm-delete-{{event.id}}"><i class="fa fa-times"></i></a>
-                           
-                                {{ render(controller( 'App\\Controller\\AgendaController::editEvent',{'id':event.id} )) }}
+
+                            {{ render(controller( 'App\\Controller\\AgendaController::editEvent',{'id':event.id} )) }}
                         </td>
                     </tr>
-                    
-                    
-    <hr style="border-top: 1px solid #e0cacade;">
 
-    <div class="modal fade" id="confirm-delete-{{event.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    Confirmation de suppression
+
+                <hr style="border-top: 1px solid #e0cacade;">
+
+                <div class="modal fade" id="confirm-delete-{{event.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                Confirmation de suppression
+                            </div>
+                            <div class="modal-body">
+                                Voulez-vous vraiment supprimer cet actualité
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
+                                <a  href="{{path('delete-event',{'id':event.id})}}" class="btn btn-danger btn-ok">Delete</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    Voulez-vous vraiment supprimer cet actualité
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
-                    <a  href="{{path('delete-event',{'id':event.id})}}" class="btn btn-danger btn-ok">Delete</a>
-                </div>
-            </div>
-        </div>
-    </div>
-                {%endfor%}
+            {%endfor%}
             </tbody>
 
         </table>
     </div>
+
+    <link href="{{asset('bower_components/jquery-datetimepicker/jquery.datetimepicker.css')}}" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+    <script src="{{asset('bower_components/jquery-datetimepicker/build/jquery.datetimepicker.full.min.js')}}"></script>
+    <script type="text/javascript">
+        //jQuery.datetimepicker.setLocale('fr');
+        $('.js-datepicker').datetimepicker({
+            //inline: true,
+            format: 'd/m/Y H:i ',
+            lang: 'fr',
+            minDate: '0', //yesterday is minimum date(for today use 0 or -1970/01/01)
+            mask: true,
+            step: 60,
+           // minTime: moment(new Date()).format('HH:mm'),
+            maxTime: '23:00',
+
+        });
+
+    </script>
 
 
 {% endblock %}

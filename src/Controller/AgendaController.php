@@ -39,7 +39,7 @@ class AgendaController extends AbstractController {
         if ($form->isSubmitted()) {
 
             $em->persist($agenda);
-          
+           
             $em->flush();
             $this->addFlash('success', 'évenement créer! succées!');
             return $this->redirectToRoute('agenda');
@@ -50,9 +50,8 @@ class AgendaController extends AbstractController {
                         ]
         );
     }
-    
-    
-     /**
+
+    /**
      * @Route("/{id}/editevent" , name="edit-event")
      * 
      */
@@ -68,19 +67,18 @@ class AgendaController extends AbstractController {
 
             $em->persist($event);
             $em->flush();
-             $this->addFlash('success', 'évenement modifier! succées!');
+            $this->addFlash('success', 'évenement modifier! succées!');
             return $this->redirectToRoute('agenda');
         }
 
         return $this->render('agenda/edit-event.html.twig', [
                     'form' => $form->createView(),
-                    'id'=>$id
+                    'id' => $id
                         ]
         );
     }
+
 //
-
-
 
     /**
      * @Route("/{id}/deleteevent" , name="delete-event")
@@ -94,14 +92,13 @@ class AgendaController extends AbstractController {
         if ($event) {
             $em->remove($event);
             $em->flush();
-             $this->addFlash('success', 'évenement supprimer! succées!');
+            $this->addFlash('success', 'évenement supprimer! succées!');
             //$request->getSession()->getFlashBag()->add('notice', array('alert' => 'success', 'title' => $trans->trans('message.title.succes'), 'message' => $trans->trans('message.text.succes')));
         } else {
             throw $this->createNotFoundException('Unable to find event entity.');
         }
 
         return $this->redirectToRoute('agenda');
-
     }
 
 }

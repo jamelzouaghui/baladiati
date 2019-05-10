@@ -60,6 +60,11 @@ class AbstractGMap {
     private $commentaire;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $type;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $publicated;
@@ -158,6 +163,16 @@ class AbstractGMap {
         return $this;
     }
 
+    public function getType() {
+        return $this->type;
+    }
+
+    public function setType($type) {
+        $this->type = $type;
+
+        return $this;
+    }
+
     public function getPublicated() {
         return $this->publicated;
     }
@@ -187,8 +202,8 @@ class AbstractGMap {
 
         return $this;
     }
-    
-     /**
+
+    /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */

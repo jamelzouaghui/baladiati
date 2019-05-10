@@ -30,7 +30,7 @@
                     <th>Nom et Prenom</th>
                     <th>Email</th>
                     <th>Profession</th>
-                    <th>cv</th>
+                   {# <th>cv</th>#}
                     <th>Date de Création</th>
                     <th>Action</th>
                 </tr>
@@ -56,7 +56,7 @@
                             <td>{{user.firstname}}{{user.lastname}}</td>
                             <td>{{user.email}}</td>
                             <th>{{user.profession}}</th>
-                            <th>{{user.cv}}</th>
+                            {#<th>{{user.cv}}</th>#}
                             <td>{{user.createdAt |date('d/m/Y')}}</td>
                             <td>
                                 <a href="#" data-toggle="modal" data-target="#modal-user-edit-{{user.id}}" class="btn btn-social-icon btn-dropbox" ><i class="fa fa-edit"></i></a>

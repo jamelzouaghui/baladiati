@@ -63,7 +63,7 @@ class AgendaController extends AbstractController {
 //test pour git init workflow
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
 
             $em->persist($event);
             $em->flush();

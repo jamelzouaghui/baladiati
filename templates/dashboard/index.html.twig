@@ -14,6 +14,10 @@
     </ol>
 {% endblock %}
 {% block body %}
+    <style>
+      
+       
+    </style>
     <div class="box-body">
         <table id="example2" class=" table table-bordered table-hover dataTable" role="grid">
             <thead>
@@ -49,10 +53,10 @@
                         <th>{{user.cv}}</th>
                         <td>{{user.createdAt |date('d/m/Y')}}</td>
                         <td>
-                            
-                                <a href="#" data-toggle="modal" data-target="#modal-user-edit-{{user.id}}" class="btn btn-social-icon btn-dropbox" ><i class="fa fa-edit"></i></a>
-                                <a href="#" data-href="{{path('delete-user',{'id':user.id})}}" class="btn btn-social-icon btn-danger" data-toggle="modal" data-target="#confirm-delete-{{user.id}}"><i class="fa fa-times"></i></a>
-                                
+
+                            <a href="#" data-toggle="modal" data-target="#modal-user-edit-{{user.id}}" class="btn btn-social-icon btn-dropbox" ><i class="fa fa-edit"></i></a>
+                            <a href="#" data-href="{{path('delete-user',{'id':user.id})}}" class="btn btn-social-icon btn-danger" data-toggle="modal" data-target="#confirm-delete-{{user.id}}"><i class="fa fa-times"></i></a>
+
                         </td>
                     </tr>
                     {{ render(controller( 'App\\Controller\\UserController::editUser',{'id':user.id,'token': user.token } )) }}

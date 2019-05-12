@@ -53,8 +53,10 @@ class ArticleController extends AbstractController {
             $em->persist($article);
             if ($photosFile) {
                 foreach ($photosFile as $file) {
+                  
                     $media = new Media();
                     $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
+                    
                     $file->move($this->getParameter('articles_directory'), $fileName);
                     $media->setName($fileName);
                     $media->setArticle($article);
@@ -120,23 +122,7 @@ class ArticleController extends AbstractController {
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $file = $form->get('photo')->getData();
-//            if ($file) {
-//                $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
-//
-//                try {
-//                    $file->move(
-//                            $this->getParameter('articles_directory'), $fileName
-//                    );
-//                } catch (FileException $e) {
-//                    
-//                }
-//
-//                $article->setPhoto($fileName);
-//            } else {
-//                $article->setPhoto($photo);
-//            }
-
+           
 
 
 

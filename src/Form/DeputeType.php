@@ -17,8 +17,8 @@ class DeputeType extends AbstractType {
                 ->add('lastname', TextType::class, array('label' => 'Prenom', 'attr' => array('class' => 'form-control')))
                 ->add('photo', FileType::class, array('label' => 'Photo', 'attr' => array('required'=>false,'class' => 'form-control')))
                 ->add('fonction', TextType::class, array('label' => 'Profession', 'attr' => array('class' => 'form-control')))
-                ->add('cv', FileType::class, array('label' => 'Photo', 'attr' => array('required'=>false,'class' => 'form-control')))
-               
+                ->add('cv', FileType::class, array('label' => 'CV', 'attr' => array('required'=>false,'class' => 'form-control'),'data_class' => null,'required'  => false, 'invalid_message' => 'Le format doit être soit PDF, docx ou xlsx et doit inférieur à 5M'))
+
 
         ;
     }

@@ -60,7 +60,9 @@
                         <img src="{{ asset('uploads/users/avatar.jpg' ) }}" class="img-circle" style="height:100px;width:100px;" alt="User " >
 
                     {%else%}
-                        <img src="{{ asset('uploads/users/' ~ entity.cv) }}" class="img-circle" style="height:100px;width:100px;" alt="User Image" >
+                       
+                         <a href="{{  asset('uploads/users/'~ entity.cv) }}"><i class="fa fa-file-pdf-o fa-3x" aria-hidden="true"></i></a>
+                               
                     {%endif%}
                     {{form_widget(form.cv)}}
                 </div>

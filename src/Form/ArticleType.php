@@ -16,7 +16,9 @@ class ArticleType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
                 ->add('title', TextType::class, array('label' => 'Titre', 'attr' => array('class' => 'form-control')))
-                ->add('content', CKEditorType::class, array(
+             
+                 ->add('content', CKEditorType::class, array(
+                    'label' => 'Contenu',
                     'config' => array(
                         'uiColor' => '#999999',
                     ),

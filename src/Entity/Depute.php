@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="depute")
@@ -11,8 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  *  @ORM\HasLifecycleCallbacks
  * @ORM\MappedSuperclass
  */
-class Depute
-{
+class Depute {
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -38,12 +39,16 @@ class Depute
     /**
      * @ORM\Column(type="string", length=255)
      */
-    
     private $photo;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * 
+     * @Assert\NotBlank(message="Please, upload the product brochure as a PDF file.")
+     *@Assert\File(
+     *     maxSize = "5M",
+     *     mimeTypes = {"application/pdf", "application/x-pdf"},
+     *     mimeTypesMessage = "Please upload a valid PDF"
+     * )
      */
     private $cv;
 
@@ -57,94 +62,80 @@ class Depute
      */
     private $updatedAt;
 
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
-    public function getFirstname()
-    {
+    public function getFirstname() {
         return $this->firstname;
     }
 
-    public function setFirstname( $firstname)
-    {
+    public function setFirstname($firstname) {
         $this->firstname = $firstname;
 
         return $this;
     }
 
-    public function getLastname()
-    {
+    public function getLastname() {
         return $this->lastname;
     }
 
-    public function setLastname( $lastname)
-    {
+    public function setLastname($lastname) {
         $this->lastname = $lastname;
 
         return $this;
     }
 
-    public function getFonction()
-    {
+    public function getFonction() {
         return $this->fonction;
     }
 
-    public function setFonction( $fonction)
-    {
+    public function setFonction($fonction) {
         $this->fonction = $fonction;
 
         return $this;
     }
 
-    public function getPhoto()
-    {
+    public function getPhoto() {
         return $this->photo;
     }
 
-    public function setPhoto( $photo)
-    {
+    public function setPhoto($photo) {
         $this->photo = $photo;
 
         return $this;
     }
 
-    public function getCv()
-    {
+    public function getCv() {
         return $this->cv;
     }
 
-    public function setCv( $cv)
-    {
+    public function setCv($cv) {
         $this->cv = $cv;
 
         return $this;
     }
 
-    public function getCreatedAt()
-    {
+    public function getCreatedAt() {
         return $this->createdAt;
     }
 
-    public function setCreatedAt( $createdAt)
-    {
+    public function setCreatedAt($createdAt) {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getUpdatedAt()
-    {
+    public function getUpdatedAt() {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt( $updatedAt)
-    {
+    public function setUpdatedAt($updatedAt) {
         $this->updatedAt = $updatedAt;
 
         return $this;
     }
+
     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
@@ -156,4 +147,5 @@ class Depute
             $this->setCreatedAt(new DateTime('now'));
         }
     }
+
 }

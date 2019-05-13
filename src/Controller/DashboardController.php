@@ -100,29 +100,33 @@ class DashboardController extends AbstractController {
 //test pour git init workflow
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
             $file = $form->get('photo')->getData();
             $filecv = $form->get('cv')->getData();
 
+            if ($filecv->guessExtension() != 'pdf') {
+                $this->addFlash('success', 'le fichier doit etre de format pdf ou doc!');
+                return $this->redirectToRoute('dashboard');
+            } else {
+                $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
+                $fileNamecv = $this->generateUniqueFileName() . '.' . $filecv->guessExtension();
+                try {
+                    $file->move($this->getParameter('users_directory'), $fileName);
+                    $filecv->move($this->getParameter('users_directory'), $fileNamecv);
+                } catch (FileException $e) {
+                    
+                }
 
-            $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
-            $fileNamecv = $this->generateUniqueFileName() . '.' . $filecv->guessExtension();
-            try {
-                $file->move($this->getParameter('users_directory'), $fileName);
-                $filecv->move($this->getParameter('users_directory'), $fileNamecv);
-            } catch (FileException $e) {
-                
+                $entity->setPhoto($fileName);
+                $entity->setCv($fileNamecv);
+
+
+
+                $em->persist($entity);
+                $em->flush();
+                $this->addFlash('success', 'deputé Créer! succées!');
+                return $this->redirectToRoute('dashboard');
             }
-
-            $entity->setPhoto($fileName);
-            $entity->setCv($fileNamecv);
-
-
-
-            $em->persist($entity);
-            $em->flush();
-            $this->addFlash('success', 'deputé Créer! succées!');
-            return $this->redirectToRoute('dashboard');
         }
 
         return $this->render('presentation/add-depute.html.twig', [
@@ -157,23 +161,37 @@ class DashboardController extends AbstractController {
         $form->handleRequest($request);
 
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
             $file = $form->get('photo')->getData();
             $filecv = $form->get('cv')->getData();
 
-            if ($file || $filecv) {
-                $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
-                $fileNamecv = $this->generateUniqueFileName() . '.' . $filecv->guessExtension();
+            if ($filecv) {
+                if ($filecv->guessExtension() != 'pdf') {
+                    $this->addFlash('success', 'le fichier doit etre de format pdf ou doc!');
+                    return $this->redirectToRoute('dashboard');
+                } else {
+                    if ($file) {
+                        $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
+                        try {
+                            $file->move($this->getParameter('users_directory'), $fileName);
+                           
+                        } catch (FileException $e) {
+                            
+                        }
+                    }
 
-                try {
-                    $file->move($this->getParameter('users_directory'), $fileName);
-                    $filecv->move($this->getParameter('users_directory'), $fileNamecv);
-                } catch (FileException $e) {
-                    
+                    $fileNamecv = $this->generateUniqueFileName() . '.' . $filecv->guessExtension();
+
+                    try {
+                        
+                        $filecv->move($this->getParameter('users_directory'), $fileNamecv);
+                    } catch (FileException $e) {
+                        
+                    }
+
+                    $entity->setPhoto($fileName);
+                    $entity->setCv($fileNamecv);
                 }
-
-                $entity->setPhoto($fileName);
-                $entity->setCv($fileNamecv);
             } else {
                 $entity->setPhoto($photodepute);
                 $entity->setCv($photocv);

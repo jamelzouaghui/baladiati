@@ -14,12 +14,13 @@
     {% for message in app.flashes('success') %}
 
         <div class="callout callout-success" id="successMessage">
-            <h4>succées !</h4>
+            {#<h4>succées !</h4>#}
 
             <p> {{ message }}</p>
         </div>
 
     {% endfor %}
+    
 {% block body %}{% endblock %}
 {% block javascripts %}{% endblock %}
 <script src="{{ asset('bower_components/jquery/dist/jquery.min.js')}}"></script>

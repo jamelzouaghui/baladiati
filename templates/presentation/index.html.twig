@@ -80,12 +80,14 @@
                         <th>{{depute.fonction}}</th>
                         <th>  
                             <div class="pull-left image">
-                                {%if depute.cv is empty %}
-                                    <img src="{{ asset('uploads/users/avatar.jpg' ) }}" class="img-circle" alt="User " style="width: 50px;">
+                              
+                              
+                              
 
-                                {%else%}
-                                    <img src="{{ asset('uploads/users/' ~ depute.cv) }}" class="img-circle" alt="User Image" style="width: 50px;">
-                                {%endif%}
+                                <a href="{{  asset('uploads/users/'~ depute.cv) }}"><i class="fa fa-file-pdf-o fa-3x" aria-hidden="true"></i></a>
+                               
+
+                          
 
                             </div>
                         </th>

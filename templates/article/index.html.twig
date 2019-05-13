@@ -14,7 +14,11 @@
     </ol>
 {% endblock %}
 {% block body %}
-
+    <style>
+        .skin-blue .sidebar-menu>li.active>a {
+            border-left-color: #3c8dbc;
+        }
+    </style>
     {% for article in articles%}
 
         {% for  media in article.medias|slice(0,1)%}

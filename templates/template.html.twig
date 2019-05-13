@@ -26,7 +26,7 @@
         <link rel="stylesheet" href="{{asset('dist/css/AdminLTE.css')}}">
 
 
-       
+
 
 
 
@@ -213,25 +213,25 @@
 
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu" data-widget="tree">
-                        <li>
-                            <a href="{{path('dashboard')}}">
+                      
+                        <li{% if app.request.get('_route') == 'dashboard' %} class="active"{% endif %}>
+                            <a href="{{ path('dashboard') }}">
                                 <i class="fa  fa-book"></i> <span>Présentation</span>
-
                             </a>
                         </li>
-                        <li>
+                        <li {% if app.request.get('_route') == 'list-article' %} class="active"{% endif %}>
                             <a href="{{path('list-article')}}">
                                 <i class="fa fa-indent"></i> <span>Actualités</span>
 
                             </a>
                         </li>
-                        <li>
+                        <li  {% if app.request.get('_route') == 'list-realisations' %} class="active"{% endif %}>
                             <a href="{{path('list-realisations')}}">
                                 <i class="fa fa-building"></i> <span>Réalisation</span>
 
                             </a>
                         </li>
-                        <li>
+                        <li {% if app.request.get('_route') == 'reclamation' %} class="active"{% endif %}>
                             <a href="{{path('reclamation')}}">
                                 <i class="fa fa-envelope"></i> <span>Réclamations</span>
                                 <span class="pull-right-container">
@@ -240,26 +240,26 @@
 
                             </a>
                         </li>
-                        <li>
+                        <li {% if app.request.get('_route') == 'agenda' %} class="active"{% endif %}>
                             <a href="{{path('agenda')}}">
                                 <i class="fa fa-calendar"></i> <span>Agenda</span>
 
                             </a>
                         </li>
-                        <li>
+                        <li {% if app.request.get('_route') == 'institution' %} class="active"{% endif %}>
                             <a href="{{path('institution')}}">
                                 <i class="fa fa-phone-square"></i> <span>Numéros Utils</span>
 
                             </a>
                         </li>
-                        <li>
+                        <li {% if app.request.get('_route') == 'Contact' %} class="active"{% endif %}>
                             <a href="#">
                                 <i class="fa fa-envelope"></i> <span>Contact</span>
 
                             </a>
                         </li>
                         {% if is_granted('ROLE_ADMINISTRATOR') %}
-                            <li>
+                            <li {% if app.request.get('_route') == 'users' %} class="active"{% endif %}>
                                 <a href="{{path('users')}}">
                                     <i class="fa  fa-book"></i> <span>Administrateur</span>
 
@@ -267,8 +267,8 @@
                             </li>
 
                         {% endif %}
-                         {% if is_granted('ROLE_ADMIN') %}
-                            <li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li {% if app.request.get('_route') == 'users' %} class="active"{% endif %}>
                                 <a href="{{path('users')}}">
                                     <i class="fa  fa-book"></i> <span>Créer Utilisateur</span>
 
@@ -384,10 +384,10 @@
                 $('#successMessage').fadeOut('slow');
             }, 2000);
         </script>
-        
-        
-        
-         
-         
+
+
+
+
+
     </body>
 </html>

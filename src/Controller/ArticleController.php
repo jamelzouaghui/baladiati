@@ -40,6 +40,7 @@ class ArticleController extends AbstractController {
             $photosFile = $request->files->get('file_photo');
 
             $title = $request->get('title');
+            
             $content = $request->get('content');
 
             $em = $this->getDoctrine()->getManager();

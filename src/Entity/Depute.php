@@ -42,7 +42,7 @@ class Depute {
     private $photo;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=false)
      * @Assert\NotBlank(message="Please, upload the product brochure as a PDF file.")
      *@Assert\File(
      *     maxSize = "5M",

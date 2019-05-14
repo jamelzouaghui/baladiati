@@ -54,7 +54,7 @@ class Article {
 
     /**
      * One product has many features. This is the inverse side.
-     * @ORM\OneToMany(targetEntity="Media", mappedBy="article")
+     * @ORM\OneToMany(targetEntity="Media", mappedBy="article",cascade={"remove"})
      */
     private $medias;
     

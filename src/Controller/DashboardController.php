@@ -104,10 +104,10 @@ class DashboardController extends AbstractController {
             $file = $form->get('photo')->getData();
             $filecv = $form->get('cv')->getData();
 
-            if ($filecv->guessExtension() != 'pdf') {
+            if ($filecv && $filecv->guessExtension() != 'pdf') {
                 $this->addFlash('success', 'le fichier doit etre de format pdf ou doc!');
                 return $this->redirectToRoute('dashboard');
-            } else {
+            } elseif ($filecv) {
                 $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
                 $fileNamecv = $this->generateUniqueFileName() . '.' . $filecv->guessExtension();
                 try {
@@ -125,6 +125,9 @@ class DashboardController extends AbstractController {
                 $em->persist($entity);
                 $em->flush();
                 $this->addFlash('success', 'deputé Créer! succées!');
+                return $this->redirectToRoute('dashboard');
+            } else {
+                $this->addFlash('success', 'le fichier doit etre de format pdf ou doc!');
                 return $this->redirectToRoute('dashboard');
             }
         }
@@ -165,37 +168,38 @@ class DashboardController extends AbstractController {
             $file = $form->get('photo')->getData();
             $filecv = $form->get('cv')->getData();
 
+
+            if ($file) {
+                $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
+                try {
+                    $file->move($this->getParameter('users_directory'), $fileName);
+                } catch (FileException $e) {
+                    
+                }
+                $entity->setPhoto($fileName);
+            } else {
+                $entity->setPhoto($photodepute);
+            }
+
             if ($filecv) {
-                if ($filecv->guessExtension() != 'pdf') {
+                if ($filecv->guessExtension() != 'pdf' || $filecv->guessExtension() != 'doc') {
                     $this->addFlash('success', 'le fichier doit etre de format pdf ou doc!');
                     return $this->redirectToRoute('dashboard');
                 } else {
-                    if ($file) {
-                        $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
-                        try {
-                            $file->move($this->getParameter('users_directory'), $fileName);
-                           
-                        } catch (FileException $e) {
-                            
-                        }
-                    }
-
                     $fileNamecv = $this->generateUniqueFileName() . '.' . $filecv->guessExtension();
-
                     try {
-                        
+
                         $filecv->move($this->getParameter('users_directory'), $fileNamecv);
                     } catch (FileException $e) {
                         
                     }
-
-                    $entity->setPhoto($fileName);
                     $entity->setCv($fileNamecv);
                 }
             } else {
-                $entity->setPhoto($photodepute);
                 $entity->setCv($photocv);
             }
+
+
 
             $em->persist($entity);
             $em->flush();

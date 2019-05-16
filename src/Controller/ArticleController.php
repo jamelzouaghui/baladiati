@@ -21,7 +21,7 @@ class ArticleController extends AbstractController {
 
         $em = $this->getDoctrine()->getManager();
         $articles = $em->getRepository(Article::class)->findAll();
-      
+
         return $this->render('article/index.html.twig', [
                     'articles' => $articles
                         ]
@@ -40,34 +40,32 @@ class ArticleController extends AbstractController {
             $photosFile = $request->files->get('file_photo');
 
             $title = $request->get('title');
-            
-            $content = $request->get('content');
+
+            $content = $request->get('contenuMessage');
+
 
             $em = $this->getDoctrine()->getManager();
             $article = new Article();
             $article->setTitle($title);
             $article->setContent($content);
             $article->setPublicated(0);
-            
-          
-            
+
+
+
             $em->persist($article);
             if ($photosFile) {
                 foreach ($photosFile as $file) {
-                  
+
                     $media = new Media();
                     $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
-                    
+
                     $file->move($this->getParameter('articles_directory'), $fileName);
                     $media->setName($fileName);
                     $media->setArticle($article);
                     $em->persist($media);
-                  
                 }
-               
-                
             }
-           
+
             $em->flush();
             $this->addFlash('success', 'article ajouter! succées!');
             return $this->redirectToRoute('list-article');
@@ -118,25 +116,39 @@ class ArticleController extends AbstractController {
         $em = $this->getDoctrine()->getManager();
 
         $article = $em->getRepository('App\Entity\Article')->find($id);
-        //$photo = $article->getPhoto();
-        $form = $this->createForm(EditArticleType::class, $article);
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-           
+            $photosFile = $request->files->get('file_photo');
 
+            $title = $request->get('title');
 
+            $content = $request->get('contenuMessage1');
 
-
+            $article->setTitle($title);
+            $article->setContent($content);
             $article->setPublicated(0);
+
             $em->persist($article);
+            if ($photosFile) {
+                foreach ($photosFile as $file) {
+
+                    $media = new Media();
+                    $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
+
+                    $file->move($this->getParameter('articles_directory'), $fileName);
+                    $media->setName($fileName);
+                    $media->setArticle($article);
+                    $em->persist($media);
+                }
+            }
+
             $em->flush();
             $this->addFlash('success', 'article modifier! succées!');
             return $this->redirectToRoute('list-article');
         }
 
         return $this->render('article/edit-article.html.twig', [
-                    'form' => $form->createView(),
+                    //'form' => $form->createView(),
                     'id' => $id,
                     'article' => $article
                         ]

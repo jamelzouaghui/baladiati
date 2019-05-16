@@ -12,7 +12,7 @@
     }
 </style>
 
-<div class="modal fade" id="modal-article-edit-{{id}}">
+{#<div class="modal fade" id="modal-article-edit-{{id}}">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -32,14 +32,7 @@
                     {{ form_widget(form.content|raw)}}
                 </div>
                 <div class="form-group">
-                    {#{%if article.photo is empty %}
-                        <img src="{{ asset('uploads/users/avatar.jpg' ) }}" class="img-circle" alt="Article " style="width:100px;height:100px;" >
 
-                    {%else%}
-                        <img src="{{ asset('uploads/articles/' ~ article.photo) }}" class="img-circle" style="width:100px;height:100px;" alt="Article Image" >
-                    {%endif%}
-                    {{ form_widget(form.photo)}}
-#}
                 </div>
 
             </div>
@@ -52,6 +45,72 @@
         <!-- /.modal-content -->
     </div>
     <!-- /.modal-dialog -->
+</div>#}
+
+
+<div class="modal fade" id="modal-article-edit-{{id}}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Modifier un Article</h4>
+            </div>
+            <div class="modal-body">
+                <form action="{{ path('edit-article', { 'id': id }) }}" method="POST" enctype="multipart/form-data" id="modal-article-edit-{{id}}">  
+
+                    <div class="form-group">
+                        <label >Titre</label>
+                        <input type="text" name="title" id="title" class="form-control" value="{{article.title}}" placeholder="Enter Titre">
+                    </div>
+
+                    <div class="form-group">
+                        <label >Contenu</label>
+
+                        <textarea class="form-control" rows="6" id="contenuMessage1"  name="contenuMessage1" placeholder="Enter Votre contenu">{{article.content}}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label >Photo</label>
+                        <br>
+                        {%for file in article.medias %}
+                          <img src="{{ asset('uploads/articles/' ~ file.name) }}" class="img-circle" style="height:100px;width:100px;" alt="User Image" >
+                          <input type="file" name="file_photo[]" id="file_photo" class="form-control" placeholder="Enter Name Here">
+                            
+                        {%endfor%}
+                        <br>
+                        <div class="input-group control-group after-add-more">
+                            <input type="file" name="file_photo[]" id="file_photo" class="form-control" placeholder="Enter Name Here">
+
+                            <div class="input-group-btn"> 
+                                <button class="btn btn-success add-more" type="button"><i class="glyphicon glyphicon-plus"></i> Ajouter</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+
+                        <input type="submit" class="btn btn-primary"></input>
+                    </div>
+                </form>
+                <div class="copy hide">
+                    <div class="control-group input-group" style="margin-top:10px">
+                        <input type="file" name="file_photo[]" id="file_photo" class="form-control" placeholder="Enter Name Here">
+
+                        <div class="input-group-btn"> 
+                            <button class="btn btn-danger remove" type="button"><i class="glyphicon glyphicon-remove"></i> Supprimer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
 </div>
-        
-       
+<script src="{{ asset('bower_components/ckeditor/ckeditor.js')}} "></script>
+<script type="text/javascript">
+    CKEDITOR.replace('contenuMessage1');
+</script>

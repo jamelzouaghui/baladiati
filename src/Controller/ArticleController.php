@@ -4,10 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Media;
-use App\Form\ArticleType;
-use App\Form\EditArticleType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -189,7 +188,7 @@ class ArticleController extends AbstractController {
             $em->flush();
         }
 
-       return $this->redirectToRoute('list-article');
+       return new JsonResponse(array('id' => $id));
     }
 
     /**

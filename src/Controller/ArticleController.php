@@ -175,10 +175,11 @@ class ArticleController extends AbstractController {
     }
 
     /**
-     * @Route("/{id}/deletemedia" , name="delete-media")
+     * @Route("/{id}/deletemedia" , name="delete-media",options={"expose"=true})
      * 
      */
     public function DeleteMedia(Request $request, $id) {
+       
         $em = $this->getDoctrine()->getManager();
 
         $media = $em->getRepository('App\Entity\Media')->find($id);
@@ -188,8 +189,7 @@ class ArticleController extends AbstractController {
             $em->flush();
         }
 
-//        return $this->redirectToRoute('edit-article', array(
-//                    'id' => $media->getArticle()->getId()));
+       return $this->redirectToRoute('list-article');
     }
 
     /**

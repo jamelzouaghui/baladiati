@@ -74,8 +74,8 @@
                         <br>
                         {%for file in article.medias %}
                           <img src="{{ asset('uploads/articles/' ~ file.name) }}" class="img-circle" style="height:100px;width:100px;" alt="User Image" >
-                          <input type="file" name="file_photo[]" id="file_photo" class="form-control" placeholder="Enter Name Here">
-                            
+                          <a href="{{path('delete-media',{'id':file.id})}}"type="button" class="btn btn-block btn-danger btn-xs" >Supprimer</a>
+                          <br><br>
                         {%endfor%}
                         <br>
                         <div class="input-group control-group after-add-more">

@@ -116,10 +116,20 @@ class ArticleController extends AbstractController {
         $em = $this->getDoctrine()->getManager();
 
         $article = $em->getRepository('App\Entity\Article')->find($id);
+        $oldMedias = $article->getMedias();
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-            $photosFile = $request->files->get('file_photo');
-
+            
+            foreach ($oldMedias as $oldfile) {
+                $med = $em->getRepository('App\Entity\Media')->find($oldfile->getId());
+                
+               $em->remove($med);
+              $em->flush($med);
+              
+            }
+           
+             $photosFile = $request->files->get('file_photo');
+           
+           
             $title = $request->get('title');
 
             $content = $request->get('contenuMessage1');

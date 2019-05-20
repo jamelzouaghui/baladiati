@@ -30,11 +30,28 @@ $(function () {
         'autoWidth': true
     })
 
+    $('#example').DataTable({
+        initComplete: function () {
+            this.api().columns([4]).every(function () {
+                var column = this;
+                var select = $('<select><option value="" class="form-control"></option></select>')
+                       .appendTo( $(column.header()) )
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                    );
 
-//    $('.js-datepicker').datetimepicker({
-//        language: 'fr',
-//        format: 'dd/mm/yyyy'
-//    });
+                            column
+                                    .search(val ? '^' + val + '$' : '', true, false)
+                                    .draw();
+                        });
+
+                column.data().unique().sort().each(function (d, j) {
+                    select.append('<option value="' + d + '">' + d + '</option>')
+                });
+            });
+        }
+    });
 
 
 
@@ -43,17 +60,9 @@ $(function () {
     $('.select2').select2({
         closeOnSelect: false,
     });
+    
 
-    $(function () {
-        $('#example2').DataTable({
-            'paging': true,
-            'lengthChange': false,
-            'searching': false,
-            'ordering': true,
-            'info': true,
-            'autoWidth': false
-        })
-    })
+
 
 
 

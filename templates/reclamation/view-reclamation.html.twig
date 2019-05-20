@@ -28,10 +28,10 @@
                         <a href="#" class="ad-click-event">
                           
                             {%if reclamation.photo is empty %}
-                                <img src="{{ asset('uploads/articles/avatar-article.png' ) }}" class="media-object" style="width: 150px;height: auto;border-radius: 4px;box-shadow: 0 1px 3px rgba(0,0,0,.15);" >
+                                <img src="{{ asset('uploads/articles/avatar-article.png' ) }}" class="img-circle" style="width: 80px;height: 80px;border-radius: 4px;box-shadow: 0 1px 3px rgba(0,0,0,.15);" >
 
                             {%else%}
-                                <img src="{{ asset('uploads/articles/' ~ reclamation.photo) }}" class="media-object" style="width: 150px;height: auto;border-radius: 4px;box-shadow: 0 1px 3px rgba(0,0,0,.15);" >
+                                <img src="{{ asset('uploads/articles/' ~ reclamation.photo) }}" class="img-circle" style="width: 80px;height:80px;border-radius: 4px;box-shadow: 0 1px 3px rgba(0,0,0,.15);" >
                             {%endif%}
 
                         </a>
@@ -42,9 +42,9 @@
 
                             </p>
 
-                            <h4 style="margin-top: 0"> {{reclamation.name}}</h4>
-
-                            <p> {{reclamation.commentaire}}</p>
+                            <h4 style="margin-top: 0;float:left"> {{reclamation.name}}  <div class="bb" style="font-weight:bold;float:right;margin-left:10px;clear:both;">{{reclamation.type}}<div/></h4>
+                            <br>
+                            <p> {{reclamation.commentaire|raw}}</p>
                             <p style="margin-bottom: 0">
                                 <i class="fa fa-shopping-cart margin-r5"></i>  {{reclamation.createdAt |date('d/m/Y')}}
                             </p>

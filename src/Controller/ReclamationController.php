@@ -60,7 +60,8 @@ class ReclamationController extends AbstractController {
 
         return $this->render('reclamation/edit-reclamation.html.twig', [
                     'form' => $form->createView(),
-                    'id' => $id
+                    'id' => $id,
+           'reclamation' =>$reclamation
                         ]
         );
     }

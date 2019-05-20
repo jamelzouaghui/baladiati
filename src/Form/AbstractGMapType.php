@@ -14,12 +14,12 @@ class AbstractGMapType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('commentaire', CKEditorType::class, array(
-                    'label' => 'Commentaire',
-                    'config' => array(
-                        'uiColor' => '#999999',
-                    ),
-                ))
+//                ->add('commentaire', CKEditorType::class, array(
+//                    'label' => 'Commentaire',
+//                    'config' => array(
+//                        'uiColor' => '#999999',
+//                    ),
+//                ))
                 ->add('publicated', ChoiceType::class, [
                     'label' => 'Publication : ',
                     'attr' => array('class' => 'form-control'),

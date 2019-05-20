@@ -37,9 +37,9 @@
                         <label >Photo</label>
                         <br>
                         {%for file in article.medias %}
-                            <div class="file-{{file.id}}">
+                            <div class="file-{{file.id}}" >
                                 <img src="{{ asset('uploads/articles/' ~ file.name) }}" class="img-circle" style="height:100px;width:100px;" alt="User Image" >
-                                <a onclick = 'handleChange1({{file.id}} );' type="button" class="btn btn-block btn-danger btn-xs" >Supprimer</a>
+                                <a onclick = 'handleChange1({{file.id}} );' type="button" class="btn btn-block btn-danger btn-xs" style="position:absolute;margin-left:14px; margin-top:-64px;" >Supprimer</a>
                                 <br><br>
 
                             </div>
@@ -94,7 +94,7 @@
             data: JSON.stringify({id: id}),
             dataType: "json",
             success: function (data) {
-                alert(data);
+                
                 $('.file-' + id).css("display", "none");
             }
         });
